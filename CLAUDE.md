@@ -36,6 +36,23 @@ cd studio && SANITY_STUDIO_PROJECT_ID=3fb6egil SANITY_STUDIO_DATASET=production 
   SANITY_STUDIO_HOST=tenam-anywhere npx sanity deploy --yes
 ```
 
+### Environment variables / secrets
+
+`.env.local` holds 14 vars (names listed in `.env.local.example`).
+
+⚠️ **`vercel env pull` does NOT restore them for this project.** Every variable in
+Vercel is stored as **Sensitive**, which Vercel makes permanently unreadable after
+creation — a pull writes the literal string `[SENSITIVE]` as each value, and the
+build then fails. The only ways to set up a new machine are to **copy `.env.local`
+directly** (AirDrop / password manager) or re-issue each key from its service (and a
+fresh Sanity write token would then also need updating in Vercel). Treat the existing
+`.env.local` as the single readable copy and don't lose it.
+
+Without real values the site still builds but degrades: products/edits/guides load
+from Sanity, **editorial articles silently fall back to seed data** (reading them
+needs the token — see the read-token note below), and Supabase/wishlist/newsletter/
+Resend/Flodesk/Awin are all inert.
+
 ---
 
 ## Architecture
