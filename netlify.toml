@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Runs the App Router app (SSR routes, middleware, server actions) on Netlify.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

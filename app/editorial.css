@@ -1,0 +1,1612 @@
+/* 10am editorial design system. Ported from the approved Vacation Wardrobe prototype. */
+
+/* Licensed Lust (Positype) — the hero headline display face. */
+@font-face {
+  font-family: 'Lust';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/Lust-Regular.woff2') format('woff2'),
+       url('/fonts/Lust-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'Lust';
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/Lust-Italic.woff2') format('woff2'),
+       url('/fonts/Lust-Italic.woff') format('woff');
+}
+
+/* Licensed The Billion Monoline — section-headline script face. */
+@font-face {
+  font-family: 'Billion Monoline';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Billion-Monoline.woff2') format('woff2'),
+       url('/fonts/Billion-Monoline.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Bembo';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Bembo-Regular.woff2') format('woff2'),
+       url('/fonts/Bembo-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'Bembo';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/Bembo-SemiBold.woff2') format('woff2'),
+       url('/fonts/Bembo-SemiBold.woff') format('woff');
+}
+@font-face {
+  font-family: 'Bembo';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/Bembo-Bold.woff2') format('woff2'),
+       url('/fonts/Bembo-Bold.woff') format('woff');
+}
+@font-face {
+  font-family: 'Bembo';
+  font-style: italic;
+  font-weight: 600 700;
+  font-display: swap;
+  src: url('/fonts/Bembo-SemiBoldItalic.woff2') format('woff2'),
+       url('/fonts/Bembo-SemiBoldItalic.woff') format('woff');
+}
+
+
+/* ===== TOKENS — strict B&W palette ===== */
+:root {
+  --paper: #FFFFFF;
+  --ink: #0A0A0A;
+  --ink-soft: #6B6B6B;
+  --soft: #F2F0EC;
+  --line: #E5E2DC;
+  --beige: #EAE2D4;
+  --footer-bg: #000000;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: var(--paper); overflow-x: hidden; max-width: 100%; }
+body {
+  font-family: 'Bembo', Georgia, serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+img { display: block; max-width: 100%; }
+a { cursor: pointer; }
+
+/* ===== TOP ANNOUNCEMENT BANNER ===== */
+.topbar {
+  background: var(--ink); padding: 8px 16px;
+  display: flex; align-items: center; justify-content: center; gap: 18px;
+}
+.topbar-text {
+  font-family: 'Bembo', Georgia, serif; font-size: 12px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: #F3F1EC;
+}
+.topbar-sub {
+  background: #fff; color: var(--ink); border: none; cursor: pointer; line-height: 1;
+  font-family: 'Bembo', Georgia, serif; font-style: italic; font-size: 15px;
+  padding: 5px 20px; border-radius: 2px; transition: opacity 0.2s;
+}
+.topbar-sub:hover { opacity: 0.82; }
+@media (max-width: 640px) {
+  .topbar { gap: 12px; padding: 7px 12px; }
+  .topbar-text { font-size: 10px; letter-spacing: 0.12em; }
+  .topbar-sub { font-size: 13px; padding: 4px 15px; }
+}
+
+/* ===== NAV ===== */
+.nav { background: var(--paper); padding: 18px 56px 0; position: sticky; top: 0; z-index: 50; border-bottom: 1px solid var(--line); }
+.nav-row { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; margin-bottom: 14px; }
+.nav-left, .nav-right { display: flex; align-items: center; gap: 26px; font-family: 'Bembo', Georgia, serif; font-size: 16px; font-weight: 700; letter-spacing: 0.02em; }
+.nav-right { justify-content: flex-end; }
+.nav-left a, .nav-right a { color: inherit; text-decoration: none; }
+.nav-left a:hover, .nav-right a:hover { opacity: 0.55; }
+.nav-icon { font-size: 19px; cursor: pointer; font-weight: 700; }
+.nav-menu { display: flex; align-items: center; gap: 12px; cursor: pointer; font-size: 21px; font-weight: 700; }
+.nav-menu-icon { width: 32px; display: flex; flex-direction: column; gap: 6px; }
+.nav-menu-icon span { display: block; height: 2.5px; background: var(--ink); }
+
+.logo { text-align: center; line-height: 0; }
+/* Logo source is black background / white text; invert to white background / black text.
+   max-width:none stops the global img{max-width:100%} from squishing it when the row is tight. */
+.logo img { height: 42px; width: auto; max-width: none; display: inline-block; filter: invert(1); }
+
+.nav-cats { display: flex; justify-content: center; gap: 48px; padding: 12px 0 14px; }
+.nav-cats a { font-family: 'Bembo', Georgia, serif; font-size: 18px; color: var(--ink); text-decoration: none; }
+.nav-cats a:hover { opacity: 0.5; }
+
+/* ===== HERO — Compact landscape masthead: short band so products sit above the fold ===== */
+.hero {
+  position: relative;
+  background: var(--paper);
+  padding: 24px 56px 24px;
+}
+.hero-inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 24px;
+  align-items: center;
+  min-height: 320px;
+}
+
+/* Headline column — centred against the short landscape collage band */
+.hero-headline {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+  position: relative;
+  z-index: 2;
+}
+.hero-eyebrow {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink);
+  font-weight: 500;
+}
+.hero-eyebrow .dot {
+  display: inline-block;
+  width: 5px; height: 5px;
+  background: var(--ink);
+  border-radius: 50%;
+  vertical-align: middle;
+  margin: 0 10px 2px 10px;
+}
+/* Hero headline in the licensed Lust display face. */
+.hero-title {
+  font-family: 'Lust', 'Bembo', Georgia, serif;
+  font-size: clamp(60px, 7vw, 112px);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: 0;
+  color: var(--ink);
+  font-style: normal;
+  margin: 0;
+}
+
+/* Scattered magazine-clipping collage (matches the reference) */
+.hero-cards { position: relative; height: 320px; width: 100%; }
+.hero-item { position: absolute; }
+.hero-item img { display: block; height: 100%; width: auto; }
+
+/* Single-image hero (a self-contained edit poster). */
+.hero-single { display: flex; justify-content: center; padding: 20px 56px 34px; }
+.hero-single-img { margin: 0; max-width: 100%; }
+.hero-single-img img { display: block; width: auto; max-width: 100%; max-height: 660px; }
+@media (max-width: 768px) {
+  /* Cover collage goes full-bleed + full-width on phones so it never shrinks
+     into the middle (arrows overlay its edges). Applies to every uploaded cover
+     automatically — no per-image handling needed. */
+  .hero.hero-single { padding: 6px 0 20px; }
+  .hero-single-img { width: 100%; }
+  .hero-single-img img { max-height: none; width: 100%; height: auto; }
+}
+.hi-bikini  { left: 4%;  bottom: -20px; height: 114%; z-index: 3; }
+.hi-wedge   { left: 34%; bottom: 4px;   height: 52%;  z-index: 2; }
+.hi-necklace{ left: 41%; top: 2%;       height: 38%;  z-index: 4; }
+.hi-boat {
+  right: 2%; top: 5%; height: 92%; z-index: 1;
+  transform: rotate(2deg);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.16);
+}
+.hi-boat img { width: 100%; height: 100%; object-fit: cover; }
+.hero-meta {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink);
+  max-width: 360px;
+}
+.hero-meta .issue {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  display: block;
+  margin-bottom: 12px;
+}
+
+/* Right column — short landscape triptych, each tile fills a capped-height band */
+.hero-collage-layer {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  align-items: stretch;
+  height: clamp(248px, 30vh, 320px);
+}
+.hc {
+  position: relative;
+  transition: transform 0.4s ease;
+  height: 100%;
+}
+.hc-frame {
+  width: 100%;
+  height: 100%;
+  background: var(--soft);
+  overflow: hidden;
+  display: block;
+}
+.hc-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Caption pinned over the image so the band stays short */
+.hc-caption {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.95);
+  padding: 28px 12px 12px;
+  background: linear-gradient(to top, rgba(0,0,0,0.45), rgba(0,0,0,0));
+  pointer-events: none;
+}
+.hc-caption .hc-num {
+  font-family: 'Bembo', Georgia, serif;
+  font-style: italic;
+  font-size: 13px;
+  letter-spacing: 0;
+  color: inherit;
+  text-transform: none;
+}
+.hc:hover .hc-frame img { transform: scale(1.02); }
+.hc-frame img { transition: transform 0.5s ease; }
+/* The middle tile lifts a touch for a composed, editorial rhythm */
+.hc-2 { transform: translateY(-14px); }
+
+/* Carousel arrow — indicates alternate hero versions (cover vs collage) */
+.hero-carousel {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero-arrow {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 28px;
+  color: var(--ink);
+  cursor: pointer;
+  user-select: none;
+  padding: 0 8px;
+  transition: opacity 0.2s;
+}
+.hero-arrow:hover { opacity: 0.5; }
+
+/* ===== Homepage edit carousel (toggle between the two latest edits) ===== */
+.edit-carousel-hero { position: relative; }
+.ecar-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 12;
+  width: 54px; height: 54px; border-radius: 50%;
+  background: rgba(10,10,10,0.88); border: none;
+  display: flex; align-items: center; justify-content: center; padding: 0;
+  font-family: 'Bembo', Georgia, serif; font-size: 34px; line-height: 1; color: #fff;
+  cursor: pointer; transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+}
+.ecar-arrow span { display: block; margin-top: -4px; }
+.ecar-arrow:hover { background: var(--ink); box-shadow: 0 4px 18px rgba(0,0,0,0.35); }
+.ecar-prev { left: 28px; }
+.ecar-next { right: 28px; }
+.ecar-dots { display: flex; justify-content: center; gap: 10px; margin: 4px 0 26px; }
+.ecar-dot {
+  width: 8px; height: 8px; border-radius: 50%; padding: 0; cursor: pointer;
+  border: 1px solid var(--ink); background: transparent; transition: background 0.2s;
+}
+.ecar-dot.is-active { background: var(--ink); }
+@media (max-width: 768px) {
+  .ecar-arrow { width: 42px; height: 42px; font-size: 24px; }
+  .ecar-prev { left: 10px; }
+  .ecar-next { right: 10px; }
+}
+/* Grouped edit (e.g. Back to School by school level) — homepage only */
+.edit-section { margin-top: 0; }
+/* Tighter vertical rhythm between age-group sections (the flat edit-band adds a
+   96px bottom pad; scope it down inside grouped sections). */
+.edit-section .edit-band { padding: 4px 0 14px; }
+.edit-section-title {
+  font-family: 'Bembo', Georgia, serif; font-style: italic;
+  font-size: clamp(24px, 3vw, 34px); text-align: center; color: var(--ink);
+  margin: 12px 0 0; letter-spacing: 0.01em;
+}
+
+/* ===== Newsletter gate (members-only Travel / Culture) ===== */
+.nl-gate { max-width: 660px; margin: 0 auto; padding: 84px 32px 130px; text-align: center; }
+.nl-gate-title {
+  font-family: 'Bembo', Georgia, serif; font-style: italic;
+  font-size: clamp(38px, 5vw, 66px); line-height: 1.0; letter-spacing: -0.01em;
+  margin: 14px 0 22px;
+}
+.nl-gate-copy {
+  font-family: 'Bembo', Georgia, serif; font-style: italic; font-size: 18px;
+  line-height: 1.5; color: #4a4a4a; max-width: 480px; margin: 0 auto 28px;
+}
+.nl-gate-form {
+  display: flex; gap: 10px; max-width: 440px; margin: 0 auto;
+  flex-wrap: wrap; justify-content: center;
+}
+.nl-gate-form input[type="email"] {
+  flex: 1; min-width: 220px; border: 1px solid var(--ink); background: transparent;
+  padding: 14px 16px; font-family: 'Bembo', Georgia, serif; font-size: 15px;
+}
+.nl-gate-submit {
+  border: 1px solid var(--ink); background: var(--ink); color: #fff;
+  padding: 14px 22px; font-family: 'Bembo', Georgia, serif; font-size: 13px;
+  letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; white-space: nowrap;
+}
+.nl-gate-submit:disabled { opacity: 0.6; cursor: default; }
+.nl-gate-fine { font-family: 'Bembo', Georgia, serif; font-size: 12px; color: var(--ink-soft); margin-top: 16px; }
+
+/* ===== Shop pages: beige backdrop, each product in its own white box ===== */
+/* Beige page; products keep the standard grey-beige (--soft) image background
+   used everywhere else, so every product tile matches site-wide. */
+.shop-page { background: var(--beige); min-height: 72vh; }
+.shop-page .edit-band { padding-top: 30px; }
+.shop-page .cat-orient,
+.shop-page .cat-intro { background: transparent; }
+
+/* ===== SECTION HEADERS ===== */
+.section-head { text-align: center; padding: 110px 56px 56px; }
+.section-head-tight { padding: 80px 56px 40px; }
+.section-head-tight .section-title { font-size: 84px; }
+.section-kicker {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--mute);
+  margin-bottom: 22px;
+  font-weight: 500;
+}
+.section-title {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 92px;
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.005em;
+  margin-bottom: 22px;
+}
+.section-title em { font-family: 'Bembo', Georgia, serif; font-style: italic; letter-spacing: -0.02em; font-size: 0.92em; }
+.section-dek {
+  font-family: 'Bembo', Georgia, serif;
+  font-style: italic;
+  font-size: 19px;
+  color: #4a4a4a;
+  max-width: 540px;
+  margin: 0 auto 28px;
+  line-height: 1.45;
+}
+.section-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 4px;
+  transition: gap 0.25s;
+}
+.section-link:hover { gap: 18px; }
+
+/* ===== STORIES (two editorial story panels) ===== */
+.stories { padding: 16px 56px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 64px 56px; }
+.story { display: grid; gap: 28px; }
+.story-image { position: relative; aspect-ratio: 4/3; background: var(--soft); overflow: hidden; }
+.story-image .stage { position: absolute; inset: 0; }
+.story-image .si { position: absolute; filter: drop-shadow(0 12px 26px rgba(0,0,0,0.10)); }
+.story-image .si img { width: 100%; height: auto; display: block; }
+
+/* Story 1 — Pastels (Instagram look 02) */
+.story-1 .si-a { top: 4%; left: 2%; width: 34%; transform: rotate(-3deg); z-index: 3; }
+.story-1 .si-b { top: 10%; left: 36%; width: 28%; transform: rotate(2deg); z-index: 4; }
+.story-1 .si-c { top: 4%; right: 4%; width: 24%; transform: rotate(-2deg); z-index: 2; }
+.story-1 .si-d { bottom: 6%; left: 28%; width: 32%; transform: rotate(3deg); z-index: 5; }
+.story-1 .si-e { bottom: 10%; right: 8%; width: 20%; transform: rotate(-4deg); z-index: 1; }
+
+/* Story 2 — Beach (Instagram look 03) */
+.story-2 .si-a { top: 2%; left: 2%; width: 36%; transform: rotate(-2deg); z-index: 3; }
+.story-2 .si-b { top: 8%; left: 38%; width: 28%; transform: rotate(3deg); z-index: 4; }
+.story-2 .si-c { top: 6%; right: 4%; width: 24%; transform: rotate(-3deg); z-index: 2; }
+.story-2 .si-d { bottom: 6%; left: 18%; width: 28%; transform: rotate(2deg); z-index: 5; }
+.story-2 .si-e { bottom: 6%; right: 14%; width: 22%; transform: rotate(-2deg); z-index: 1; }
+
+.story-meta { padding: 0 4px; }
+.story-kicker {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--mute);
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+.story-title {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 54px;
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.005em;
+  margin-bottom: 18px;
+}
+.story-title em { font-family: 'Bembo', Georgia, serif; font-style: italic; letter-spacing: -0.02em; font-size: 0.92em; }
+.story-dek {
+  font-family: 'Bembo', Georgia, serif;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.45;
+  color: #4a4a4a;
+  margin-bottom: 22px;
+  max-width: 480px;
+}
+.story-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 4px;
+  transition: gap 0.25s;
+}
+.story-cta:hover { gap: 16px; }
+
+/* ===== EDITORIAL CROSSWAY (Instagram look as full-bleed editorial image) ===== */
+.crossway {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 0;
+  gap: 0;
+  margin: 80px 0;
+}
+.crossway-image {
+  background: var(--soft);
+  aspect-ratio: 4/5;
+  position: relative;
+  overflow: hidden;
+}
+.crossway-image .stage { position: absolute; inset: 0; }
+.crossway-image .ci { position: absolute; filter: drop-shadow(0 14px 28px rgba(0,0,0,0.10)); }
+.crossway-image .ci img { width: 100%; height: auto; display: block; }
+/* Yellow stripes look composed */
+.crossway-image .ci-a { top: 5%; left: 3%; width: 38%; transform: rotate(-2deg); z-index: 3; }
+.crossway-image .ci-b { top: 8%; left: 38%; width: 30%; transform: rotate(2deg); z-index: 4; }
+.crossway-image .ci-c { top: 4%; right: 4%; width: 22%; transform: rotate(-3deg); z-index: 1; }
+.crossway-image .ci-d { bottom: 6%; left: 14%; width: 28%; transform: rotate(3deg); z-index: 5; }
+.crossway-image .ci-e { bottom: 4%; right: 8%; width: 20%; transform: rotate(-2deg); z-index: 2; }
+.crossway-text {
+  padding: 80px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.crossway-text .story-kicker { margin-bottom: 18px; }
+.crossway-text .story-title { font-size: 64px; margin-bottom: 22px; }
+.crossway-text .story-dek { font-size: 18px; max-width: 460px; margin-bottom: 26px; }
+
+/* ===== THE EDIT — Uniform 4-column grid (matching reference) ===== */
+.edit-band { padding: 26px 0 96px; }
+
+/* Product sort control shown above a category grid. */
+.sort-bar {
+  display: flex; align-items: center; justify-content: flex-end; gap: 12px;
+  padding: 0 56px 20px;
+}
+.sort-label {
+  font-family: 'Bembo', Georgia, serif; font-size: 10px; letter-spacing: 0.28em;
+  text-transform: uppercase; color: var(--ink-soft);
+}
+.sort-select-wrap { position: relative; }
+.sort-select-wrap::after {
+  content: ""; position: absolute; right: 4px; top: 50%; width: 6px; height: 6px;
+  border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink);
+  transform: translateY(-70%) rotate(45deg); pointer-events: none;
+}
+.sort-select {
+  appearance: none; -webkit-appearance: none; background: transparent;
+  border: none; border-bottom: 1px solid var(--ink); border-radius: 0;
+  font-family: 'Bembo', Georgia, serif; font-size: 13px; color: var(--ink);
+  padding: 4px 22px 5px 2px; cursor: pointer; outline: none;
+}
+@media (max-width: 1024px) { .sort-bar { padding: 0 32px 16px; } }
+
+.edit-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: auto;
+  gap: 38px 26px;
+  padding: 0 56px;
+  position: relative;
+}
+/* Thin horizontal lines between rows — magazine-style */
+.edit-grid::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 56px;
+  right: 56px;
+  height: 1px;
+  background: var(--line);
+}
+.ec { position: relative; cursor: pointer; transition: transform 0.35s; }
+.ec:hover { transform: translateY(-4px); }
+.ec-card-link { display: block; color: inherit; text-decoration: none; }
+.ec-card-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+.ec-img {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: var(--soft);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5%;
+}
+.ec-img img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
+/* Subtle tag marking the extra web-only pieces (vs the Instagram look). */
+.ec-tag {
+  position: absolute; top: 12px; left: 12px; z-index: 2;
+  font-family: 'Bembo', Georgia, serif; font-size: 9px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--ink);
+  background: rgba(255,255,255,0.82); padding: 4px 8px;
+}
+.ec-meta { padding: 18px 0 0; }
+.ec-brand {
+  font-family: 'Bembo', Georgia, serif;
+  font-style: italic;
+  font-size: 17px;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+.ec-name {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #4a4a4a;
+  margin-bottom: 8px;
+}
+.ec-price {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+.ec-wish {
+  position: absolute; top: 14px; right: 14px;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: rgba(255,255,255,0.92);
+  border: none; padding: 0; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ink); font-size: 13px;
+  opacity: 0; transition: opacity 0.25s; z-index: 2;
+}
+.ec:hover .ec-wish,
+.ec-wish:focus-visible,
+.ec-wish[aria-pressed="true"] { opacity: 1; }
+
+/* Size variants */
+.ec-feat { grid-column: span 2; grid-row: span 2; }
+.ec-feat .ec-img { aspect-ratio: 1/1.35; padding: 0; }
+.ec-feat .ec-img img { width: 100%; height: 100%; max-width: none; max-height: none; object-fit: cover; object-position: center top; }
+.ec-feat .ec-brand { font-size: 20px; }
+
+.ec-wide { grid-column: span 2; }
+.ec-wide .ec-img { aspect-ratio: 5/4; padding: 6%; }
+
+.ec-tall .ec-img { aspect-ratio: 3/4.6; padding: 8%; }
+
+.ec-compact .ec-img { aspect-ratio: 3/4; padding: 18%; }
+.ec-compact .ec-brand { font-size: 15px; }
+.ec-compact .ec-name { font-size: 10px; }
+
+/* ===== Editorial shop layout: occasional larger tiles for magazine rhythm =====
+   A feature tile spans 2 columns x 2 rows; dense flow backfills so there are no
+   holes. The product is shown larger but still whole (contain, not cropped),
+   matching the 3/4 tile so the big tile aligns with two normal rows. */
+.editorial-grid { grid-auto-flow: row dense; }
+.editorial-grid .ec-feat { grid-column: span 2; grid-row: span 2; }
+.editorial-grid .ec-feat .ec-img {
+  aspect-ratio: 3/4; padding: 11%; background: var(--soft);
+}
+.editorial-grid .ec-feat .ec-img img {
+  width: auto; height: auto; max-width: 100%; max-height: 100%;
+  object-fit: contain; object-position: center;
+}
+.editorial-grid .ec-feat .ec-brand { font-size: 19px; }
+@media (max-width: 1024px) {
+  /* On the 2-column mobile grid a feature fills the width as a big square. */
+  .editorial-grid .ec-feat { grid-column: span 2; grid-row: span 2; }
+}
+
+
+/* ===== MEN — dedicated edit band (provisional, pending Silke's 3 examples) ===== */
+.men-edit { padding: 90px 0 40px; border-top: 1px solid var(--line); }
+.men-head {
+  padding: 0 56px 36px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.men-head-titles { max-width: 640px; }
+.men-kicker {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+}
+.men-title {
+  /* Homepage "Men" section heading: large and bold. */
+  font-family: 'Bembo', Georgia, serif;
+  font-size: clamp(30px, 3.6vw, 46px);
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin-bottom: 0;
+}
+.men-dek {
+  font-family: 'Bembo', Georgia, serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.45;
+  color: #4a4a4a;
+  max-width: 480px;
+}
+/* Women | Men toggle — shown live so Silke can react to the "one grid, two departments" option */
+.dept-toggle { display: inline-flex; border: 1px solid var(--ink); flex-shrink: 0; }
+.dept-toggle a {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 11px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  padding: 12px 22px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.dept-toggle a.is-on { background: var(--ink); color: var(--paper); }
+.dept-toggle a:not(.is-on):hover { background: var(--soft); }
+/* Placeholder cards — men's product imagery to follow from the editorial team */
+.ec-ph .ec-img { padding: 0; }
+.ec-ph-mark {
+  font-family: 'Bembo', Georgia, serif;
+  font-style: italic;
+  font-size: 26px;
+  color: var(--ink-soft);
+  text-align: center;
+  line-height: 1.1;
+}
+.ec-ph-mark small {
+  display: block;
+  font-family: 'Bembo', Georgia, serif;
+  font-style: normal;
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  margin-top: 10px;
+  color: var(--ink-soft);
+}
+/* Internal "for discussion" note — visible only to the 10am team, delete before launch */
+.disc-note {
+  margin: 0 56px 44px;
+  border: 1px dashed #c9c4ba;
+  padding: 18px 22px;
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #6B6B6B;
+  background: #faf9f6;
+}
+.disc-note strong { color: var(--ink); letter-spacing: 0.04em; text-transform: uppercase; font-size: 10px; }
+.disc-note b { color: var(--ink); }
+@media (max-width: 1024px) {
+  .men-head { padding: 0 32px 28px; }
+  .disc-note { margin: 0 32px 32px; }
+}
+
+
+/* ===== EDITORIAL FEATURE — second edit, builds on the first (per Silke) ===== */
+.editorial-feature {
+  background: var(--paper);
+  padding: 120px 56px 140px;
+  border-top: 1px solid var(--line);
+}
+.editorial-feature-inner {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 88px;
+  max-width: 1320px;
+  margin: 0 auto;
+  align-items: center;
+}
+.editorial-feature-image {
+  position: relative;
+  background: var(--soft);
+  overflow: hidden;
+  aspect-ratio: 4/5;
+}
+.editorial-feature-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+.editorial-feature-image:hover img { transform: scale(1.02); }
+.editorial-feature-image .ef-tag {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(255,255,255,0.95);
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  color: var(--ink);
+}
+.editorial-feature-text { padding: 8px 0; }
+.editorial-feature-text .story-kicker { margin-bottom: 22px; }
+.editorial-feature-text .story-title {
+  font-size: 88px;
+  line-height: 0.95;
+  margin-bottom: 28px;
+}
+.editorial-feature-text .story-dek {
+  font-size: 19px;
+  max-width: 480px;
+  margin-bottom: 32px;
+}
+.editorial-feature-body {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ink);
+  max-width: 480px;
+  margin-bottom: 32px;
+}
+.editorial-feature-body p { margin-bottom: 14px; }
+.editorial-feature-meta {
+  display: flex;
+  gap: 32px;
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 36px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+@media (max-width: 1024px) {
+  .editorial-feature { padding: 80px 32px; }
+  .editorial-feature-inner { grid-template-columns: 1fr; gap: 48px; }
+  .editorial-feature-text .story-title { font-size: 56px; }
+}
+
+/* ===== ALWAYS 10AM SOMEWHERE — enhanced editorial moment ===== */
+.always-band { background: var(--ink); color: var(--paper); padding: 140px 56px 120px; text-align: center; position: relative; }
+.always-band-kicker {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 28px;
+}
+.always-band h2 {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 168px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+  margin-bottom: 36px;
+}
+.always-band h2 em { font-family: 'Bembo', Georgia, serif; font-style: italic; letter-spacing: -0.02em; font-size: 0.92em; }
+.always-band-tag {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 19px;
+  line-height: 1.55;
+  max-width: 620px;
+  margin: 0 auto 80px;
+  color: rgba(255,255,255,0.82);
+  font-style: italic;
+}
+/* Live timezone clocks — six cities, the active one (closest to 10am) is highlighted */
+.always-clocks {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+  max-width: 1100px;
+  margin: 0 auto;
+  border-top: 1px solid rgba(255,255,255,0.18);
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+}
+.clock {
+  padding: 36px 12px 32px;
+  border-right: 1px solid rgba(255,255,255,0.10);
+  position: relative;
+  transition: background 0.4s ease;
+}
+.clock:last-child { border-right: none; }
+.clock-city {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 14px;
+}
+.clock-time {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 38px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: rgba(255,255,255,0.92);
+  font-feature-settings: 'tnum' 1, 'lnum' 1;
+}
+.clock-meta {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-top: 10px;
+}
+.clock.is-active { background: rgba(255,255,255,0.04); }
+.clock.is-active .clock-city { color: var(--paper); font-weight: 500; }
+.clock.is-active .clock-time { color: var(--paper); }
+.clock.is-active::after {
+  content: '';
+  position: absolute;
+  top: -1px; left: 0; right: 0;
+  height: 2px;
+  background: var(--paper);
+}
+.clock.is-active .clock-meta { color: rgba(255,255,255,0.7); }
+
+/* ===== FOOTER ===== */
+.footer { background: var(--footer-bg); color: var(--paper); padding: 80px 56px 40px; }
+.footer-top {
+  margin-bottom: 60px;
+  padding-bottom: 50px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+.footer-sub { margin-bottom: 52px; }
+.footer-sub-btn {
+  display: inline-block; background: #fff; color: var(--ink); border: none; cursor: pointer;
+  font-family: 'Bembo', Georgia, serif; font-style: italic; font-size: 16px; line-height: 1;
+  padding: 10px 28px; border-radius: 2px; white-space: nowrap; transition: opacity 0.2s;
+}
+.footer-sub-btn:hover { opacity: 0.85; }
+.footer-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 56px;
+  max-width: 720px;
+}
+.footer-brand {
+  margin-bottom: 24px;
+  line-height: 0;
+}
+.footer-brand img {
+  height: 64px;
+  width: auto;
+  display: inline-block;
+  /* Logo is black background / white text: on the dark footer the box blends
+     and the white wordmark reads correctly. No filter needed. */
+}
+.footer-nl-label {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.92);
+  margin-bottom: 14px;
+}
+.footer-nl-form { display: flex; align-items: center; gap: 20px; border-bottom: 1px solid rgba(255,255,255,0.45); padding-bottom: 10px; max-width: 290px; }
+.footer-nl-form input { flex: 1; min-width: 0; background: transparent; border: none; color: var(--paper); font-family: 'Bembo', Georgia, serif; font-size: 15px; outline: none; }
+.footer-nl-form input::placeholder { color: rgba(255,255,255,0.6); }
+.footer-nl-form button { flex-shrink: 0; background: transparent; border: none; color: var(--paper); font-family: 'Bembo', Georgia, serif; font-size: 12px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; cursor: pointer; }
+.footer-col-title { font-family: 'Bembo', Georgia, serif; font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 20px; }
+.footer-col a { display: block; font-family: 'Bembo', Georgia, serif; font-size: 16px; color: var(--paper); text-decoration: none; margin-bottom: 10px; }
+.footer-col a:hover { opacity: 0.6; }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; font-family: 'Bembo', Georgia, serif; font-size: 11px; color: rgba(255,255,255,0.5); }
+.footer-ig { color: rgba(255,255,255,0.9); display: inline-flex; line-height: 0; margin-top: 14px; transition: opacity 0.2s ease; }
+.footer-ig:hover { opacity: 0.6; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1280px) {
+  .hero-title { font-size: 104px; }
+  .always-band h2 { font-size: 134px; }
+  .section-title { font-size: 72px; }
+}
+@media (max-width: 1024px) {
+  .hero { padding: 28px 24px 36px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 16px; min-height: auto; }
+  .hero-title { font-size: 64px; }
+  .hero-cards { height: 280px; }
+  .stories { grid-template-columns: 1fr; gap: 56px; padding: 16px 32px 80px; }
+  .crossway { grid-template-columns: 1fr; gap: 0; }
+  .crossway-text { padding: 56px 32px; }
+  .edit-grid { grid-template-columns: repeat(2, 1fr); padding: 0 32px; gap: 26px 16px; }
+  .ec-feat { grid-column: span 2; grid-row: auto; }
+  .ec-feat .ec-img { aspect-ratio: 3/4; }
+  .ec-wide { grid-column: span 2; }
+  .always-band h2 { font-size: 64px; }
+  .section-title { font-size: 48px; }
+  .nav { padding: 22px 24px 0; }
+  .nav-cats { gap: 14px 28px; flex-wrap: wrap; padding: 14px 16px 16px; }
+  .footer-links { grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+}
+
+/* ===== OVERLAYS — search + newsletter ===== */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,10,10,0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.overlay.is-open { opacity: 1; visibility: visible; }
+.overlay-panel {
+  background: var(--paper);
+  width: 100%;
+  max-width: 100%;
+  padding: 48px 56px 72px;
+  transform: translateY(-20px);
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+}
+.overlay.is-open .overlay-panel { transform: translateY(0); }
+.overlay-close {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  background: none;
+  border: none;
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: var(--ink);
+  padding: 8px 4px;
+}
+.overlay-close:hover { opacity: 0.55; }
+.overlay-eyebrow {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+}
+.overlay-title {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 64px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+  margin-bottom: 32px;
+  max-width: 720px;
+}
+/* Subscribe popup (compact, single column) — scoped so it doesn't affect the
+   nav newsletter / search overlays. Short copy + tight spacing keep the name and
+   email fields above the fold on mobile (no scrolling to reach the form). */
+.subpop .overlay-panel { max-width: 680px; margin: 0 auto; padding: 44px 56px 48px; }
+.subpop .overlay-title { font-size: 46px; margin-bottom: 14px; }
+.subpop-line {
+  font-family: 'Bembo', Georgia, serif; font-style: italic; font-size: 19px;
+  line-height: 1.4; color: #4a4a4a; margin: 0 0 26px; max-width: 460px;
+}
+@media (max-width: 640px) {
+  .subpop .overlay-panel { padding: 24px 22px 28px; }
+  .subpop .overlay-eyebrow { margin-bottom: 10px; }
+  .subpop .overlay-title { font-size: 29px; line-height: 1.02; margin-bottom: 8px; }
+  .subpop-line { font-size: 15px; margin-bottom: 16px; }
+  .subpop .overlay-close { top: 16px; right: 18px; }
+}
+
+/* search panel */
+.search-input-wrap { border-bottom: 1px solid var(--ink); display: flex; align-items: center; padding-bottom: 14px; max-width: 920px; }
+.search-input-wrap .icon { font-size: 22px; margin-right: 16px; color: var(--ink); }
+.search-input-wrap button.icon { background: none; border: none; cursor: pointer; padding: 0; line-height: 1; }
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 28px;
+  color: var(--ink);
+  padding: 4px 0;
+}
+.search-input::placeholder { color: var(--ink-soft); font-style: italic; }
+.search-suggest { display: flex; gap: 32px; margin-top: 36px; flex-wrap: wrap; }
+.search-suggest-label { font-family: 'Bembo', Georgia, serif; font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink-soft); margin-right: 8px; align-self: center; }
+.search-suggest a { font-family: 'Bembo', Georgia, serif; font-size: 16px; color: var(--ink); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; }
+.search-suggest a:hover { border-bottom-color: var(--ink); }
+/* newsletter panel */
+.nl-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: start; max-width: 1100px; }
+.nl-copy p { font-family: 'Bembo', Georgia, serif; font-size: 17px; line-height: 1.6; color: var(--ink); max-width: 480px; margin-bottom: 22px; }
+.nl-perks { list-style: none; padding: 0; margin: 28px 0 0; }
+.nl-perks li { font-family: 'Bembo', Georgia, serif; font-size: 15px; padding: 10px 0; border-bottom: 1px solid var(--line); color: var(--ink); display: flex; gap: 14px; }
+.nl-perks li::before { content: '01'; font-family: 'Bembo', Georgia, serif; font-size: 10px; letter-spacing: 0.2em; color: var(--ink-soft); align-self: center; min-width: 18px; }
+.nl-perks li:nth-child(2)::before { content: '02'; }
+.nl-perks li:nth-child(3)::before { content: '03'; }
+/* Numbered variant renders 01/02/03 in markup, so suppress the ::before counter. */
+.nl-perks-num { margin-top: 22px; }
+.nl-perks-num li::before { content: none; }
+.nl-num { font-family: 'Bembo', Georgia, serif; font-size: 10px; letter-spacing: 0.2em; color: var(--ink-soft); align-self: center; min-width: 18px; }
+.nl-form { background: var(--soft); padding: 40px 36px; }
+.nl-form label { display: block; font-family: 'Bembo', Georgia, serif; font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; }
+.nl-form input { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--ink); font-family: 'Bembo', Georgia, serif; font-size: 18px; padding: 8px 0; outline: none; color: var(--ink); margin-bottom: 28px; }
+.nl-form input:focus { border-bottom-width: 2px; }
+.nl-submit {
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  padding: 16px 32px;
+  cursor: pointer;
+  width: 100%;
+  transition: opacity 0.2s;
+}
+.nl-submit:hover { opacity: 0.85; }
+.nl-fineprint { font-family: 'Bembo', Georgia, serif; font-size: 10px; color: var(--ink-soft); margin-top: 14px; line-height: 1.6; }
+/* Clear on-page confirmation after a successful subscribe. */
+.nl-success { font-family: 'Bembo', Georgia, serif; font-style: italic; font-size: 15px; color: var(--ink); margin-top: 16px; line-height: 1.5; }
+body.is-locked { overflow: hidden; }
+@media (max-width: 900px) {
+  .overlay-panel { padding: 32px 24px 56px; }
+  .overlay-title { font-size: 44px; }
+  .nl-grid { grid-template-columns: 1fr; gap: 36px; }
+  .always-clocks { grid-template-columns: repeat(3, 1fr); }
+  .clock:nth-child(3) { border-right: none; }
+  .clock:nth-child(4), .clock:nth-child(5), .clock:nth-child(6) { border-top: 1px solid rgba(255,255,255,0.10); }
+}
+
+/* ===== Next app additions: button resets, newsletter status, menu overlay ===== */
+
+/* Nav controls that became <button>s keep the look of their <a> siblings. */
+.nav-menu { background: none; border: none; padding: 0; color: inherit; font-family: 'Bembo', Georgia, serif; font-size: 21px; font-weight: 700; }
+.nav-right .nav-textbtn,
+.nav-right .nav-iconbtn {
+  background: none; border: none; padding: 0; cursor: pointer; color: inherit;
+  font-family: 'Bembo', Georgia, serif; font-size: 16px; font-weight: 700; letter-spacing: 0.02em;
+}
+.nav-right .nav-iconbtn { font-size: 24px; line-height: 1; }
+.nav-right .nav-textbtn:hover, .nav-right .nav-iconbtn:hover { opacity: 0.55; }
+.logo a { display: inline-block; line-height: 0; }
+
+/* Footer newsletter inline status line. */
+.footer-nl-form { flex-wrap: wrap; }
+.footer-nl-msg {
+  flex-basis: 100%; margin-top: 8px;
+  font-family: 'Bembo', Georgia, serif; font-size: 11px;
+  color: rgba(255,255,255,0.6);
+}
+
+/* ===== MENU OVERLAY ===== */
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1.2fr;
+  gap: 56px;
+  max-width: 1280px;
+  margin-top: 8px;
+}
+.menu-col-title {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 22px;
+}
+.menu-col a {
+  display: block;
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 30px;
+  font-style: italic;
+  color: var(--ink);
+  text-decoration: none;
+  margin-bottom: 14px;
+  line-height: 1.1;
+  transition: opacity 0.2s, padding-left 0.25s;
+}
+.menu-col a:hover { opacity: 0.5; padding-left: 8px; }
+.menu-col .menu-sub a {
+  font-family: 'Bembo', Georgia, serif;
+  font-style: normal;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.menu-feature {
+  background: #6b7993;
+  color: #fff;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 280px;
+}
+/* Brand logo in a circle — makes Join the Club read like an exclusive badge. */
+.club-badge {
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+}
+.club-badge img { height: 22px; width: auto; filter: invert(1); }
+.menu-feature-eyebrow {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 16px;
+}
+.menu-feature h3 {
+  font-family: 'Bembo', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 0.95;
+  margin-bottom: 14px;
+}
+.menu-feature p {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 15px;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 24px;
+}
+.menu-feature button {
+  align-self: flex-start;
+  background: #fff;
+  color: var(--ink);
+  border: none;
+  font-family: 'Bembo', Georgia, serif;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  padding: 14px 26px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.menu-feature button:hover { opacity: 0.85; }
+@media (max-width: 900px) {
+  .menu-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .menu-feature { grid-column: 1 / -1; }
+}
+
+/* ===== Inner page templates (category, about, article, guide, legal, account) ===== */
+.page-head { padding: 72px 56px 36px; max-width: 1100px; }
+/* Small orientation label on category pages — products start right under it. */
+.cat-orient {
+  font-family: 'Bembo', Georgia, serif;
+  font-style: italic;
+  font-size: 16px;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  padding: 22px 56px 2px;
+}
+@media (max-width: 1024px) { .cat-orient { padding: 18px 32px 2px; } }
+/* Travel/Culture: script headline in The Billion Monoline + a short Bembo
+   standfirst under the label. */
+.cat-intro { padding: 2px 56px 22px; max-width: 900px; }
+.cat-headline {
+  font-family: 'Billion Monoline', 'Lust', cursive;
+  font-weight: 400;
+  /* Keep the three-word headline (e.g. "Where We're Headed") on a single line
+     across viewports without overflowing. */
+  font-size: clamp(26px, 5.4vw, 88px);
+  white-space: nowrap;
+  line-height: 1.02;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  margin: 4px 0 16px;
+}
+.cat-intro-text {
+  font-family: 'Bembo', Georgia, serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #4a4a4a;
+  max-width: 560px;
+}
+@media (max-width: 1024px) { .cat-intro { padding: 2px 32px 18px; } }
+/* Men section: just the enlarged "10am, for him" line. */
+.men-hed {
+  font-family: 'Bembo', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(34px, 5vw, 60px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.page-head .page-kicker {
+  font-family: 'Bembo', Georgia, serif; font-size: 11px; letter-spacing: 0.32em;
+  text-transform: uppercase; color: var(--ink-soft); margin-bottom: 20px;
+}
+.page-title {
+  font-family: 'Bembo', Georgia, serif;
+  font-size: clamp(48px, 6vw, 96px); font-weight: 400; font-style: italic;
+  line-height: 0.95; letter-spacing: -0.01em; margin-bottom: 20px;
+}
+.page-dek {
+  font-family: 'Bembo', Georgia, serif; font-style: italic;
+  font-size: 19px; line-height: 1.45; color: #4a4a4a; max-width: 540px;
+}
+.page-narrow { max-width: 760px; margin: 0 auto; }
+
+.empty-edit {
+  padding: 40px 56px 120px; max-width: 620px;
+}
+.empty-edit p {
+  font-family: 'Bembo', Georgia, serif; font-style: italic; font-size: 20px;
+  line-height: 1.5; color: #4a4a4a;
+}
+
+/* prose for article + legal bodies */
+.prose { padding: 0 56px 96px; }
+.prose .prose-inner { max-width: 720px; }
+.prose p {
+  font-family: 'Bembo', Georgia, serif; font-size: 18px; line-height: 1.7;
+  color: var(--ink); margin-bottom: 22px;
+}
+.prose h2 {
+  font-family: 'Bembo', Georgia, serif; font-style: italic; font-weight: 400;
+  font-size: 34px; margin: 40px 0 16px;
+}
+.legal { padding: 0 56px 120px; }
+.legal .prose-inner { max-width: 760px; }
+.legal h2 {
+  font-family: 'Bembo', Georgia, serif; font-size: 12px; letter-spacing: 0.28em;
+  text-transform: uppercase; color: var(--ink); margin: 36px 0 12px;
+}
+.legal p, .legal li {
+  font-family: 'Bembo', Georgia, serif; font-size: 14px; line-height: 1.8; color: #333;
+  max-width: 720px;
+}
+.legal .placeholder {
+  background: var(--soft); border-left: 2px solid var(--ink);
+  padding: 4px 10px; font-style: italic; color: var(--ink-soft);
+}
+
+/* article hero + shop this story */
+.article-hero {
+  margin: 0 56px 48px; aspect-ratio: 16/7; background: var(--soft);
+  overflow: hidden; position: relative;
+}
+.article-hero img { width: 100%; height: 100%; object-fit: cover; }
+.article-meta {
+  display: flex; gap: 28px; padding: 0 56px 28px;
+  font-family: 'Bembo', Georgia, serif; font-size: 10px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--ink-soft);
+}
+/* Sectioned "column" articles (e.g. Three Rooms Worth the Trip): a run of
+   labelled mini-features, each an image over a kicker, heading, blurb and links. */
+.article-sections {
+  max-width: 860px; margin: 0 auto; padding: 8px 56px 40px;
+}
+.art-sec {
+  padding: 56px 0; border-top: 1px solid var(--line);
+}
+.art-sec:first-child { border-top: none; padding-top: 8px; }
+.art-sec-img {
+  aspect-ratio: 3/2; background: var(--soft); overflow: hidden;
+  margin-bottom: 30px;
+}
+.art-sec-img img { width: 100%; height: 100%; object-fit: cover; }
+.art-sec-kicker {
+  font-family: 'Bembo', Georgia, serif; font-size: 11px; letter-spacing: 0.32em;
+  text-transform: uppercase; color: var(--ink-soft); margin-bottom: 14px;
+}
+.art-sec-heading {
+  font-family: 'Bembo', Georgia, serif; font-style: italic; font-weight: 400;
+  font-size: clamp(26px, 3.4vw, 38px); line-height: 1.08; letter-spacing: -0.01em;
+  margin: 0 0 20px;
+}
+.art-sec-body p {
+  font-family: 'Bembo', Georgia, serif; font-size: 18px; line-height: 1.7;
+  color: var(--ink); margin-bottom: 18px;
+}
+.art-sec-links {
+  display: flex; flex-wrap: wrap; gap: 12px 20px; margin-top: 26px;
+}
+.art-sec-link {
+  font-family: 'Bembo', Georgia, serif; font-size: 11px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--ink); text-decoration: none;
+  padding-bottom: 4px; border-bottom: 1px solid var(--ink); transition: opacity 0.2s;
+}
+.art-sec-link:hover { opacity: 0.5; }
+
+/* Typographic editorial card, when an editorial has no hero image. */
+.ed-card-img-text {
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px; text-align: center; background: var(--soft);
+}
+.ed-card-wordmark {
+  font-family: 'Bembo', Georgia, serif; font-style: italic; font-size: 26px;
+  line-height: 1.2; color: var(--ink);
+}
+
+.shop-rail { padding: 24px 0 96px; border-top: 1px solid var(--line); }
+.shop-rail-head {
+  padding: 0 56px 8px;
+  font-family: 'Bembo', Georgia, serif; font-size: 11px; letter-spacing: 0.32em;
+  text-transform: uppercase; color: var(--ink-soft);
+}
+
+/* city guide columns */
+/* Travel guides run tighter than other pages: smaller gaps between the title,
+   the description lines and every recommendation. */
+.guide-head .page-title { margin-bottom: 10px; }
+.guide-head .page-dek { line-height: 1.32; margin-bottom: 5px; }
+.guide-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px 32px;
+  padding: 6px 56px 80px;
+}
+.guide-col h3 {
+  font-family: 'Bembo', Georgia, serif; font-size: 11px; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--ink); margin-bottom: 9px;
+  padding-bottom: 7px; border-bottom: 1px solid var(--ink);
+}
+.guide-place { margin-bottom: 9px; }
+.guide-place .gp-name {
+  font-family: 'Bembo', Georgia, serif; font-style: italic; font-weight: 600;
+  font-size: 18px; margin-bottom: 1px; line-height: 1.2;
+}
+/* Recommendation name links through to its affiliate URL. */
+a.gp-name { display: inline-block; color: inherit; text-decoration: none; cursor: pointer; }
+a.gp-name:hover { text-decoration: underline; text-underline-offset: 3px; }
+.guide-place .gp-blurb {
+  font-family: 'Bembo', Georgia, serif; font-size: 12.5px; line-height: 1.3; color: #4a4a4a;
+}
+.gated-flag {
+  display: inline-block; margin-left: 12px; vertical-align: middle;
+  background: var(--ink); color: var(--paper);
+  font-family: 'Bembo', Georgia, serif; font-size: 9px; letter-spacing: 0.22em;
+  text-transform: uppercase; padding: 5px 9px;
+}
+
+/* founders */
+.founders {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px;
+  padding: 8px 56px 110px;
+}
+.founder-portrait { aspect-ratio: 3/4; background: var(--soft); margin-bottom: 22px; }
+.founder-name {
+  font-family: 'Bembo', Georgia, serif; font-style: italic; font-size: 28px; margin-bottom: 4px;
+}
+.founder-role {
+  font-family: 'Bembo', Georgia, serif; font-size: 10px; letter-spacing: 0.24em;
+  text-transform: uppercase; color: var(--ink-soft); margin-bottom: 14px;
+}
+.founder-bio { font-family: 'Bembo', Georgia, serif; font-size: 16px; line-height: 1.6; color: #333; }
+
+/* the editors */
+.editors-hero {
+  /* Landscape founders portrait (16:9). Frame width kept moderate so the image
+     stays crisp on both mobile and retina desktop. */
+  margin: 0 auto 52px; max-width: 820px; aspect-ratio: 16/9;
+  background: var(--soft); overflow: hidden; position: relative;
+}
+.editors-hero img { width: 100%; height: 100%; object-fit: cover; image-rendering: auto; }
+
+/* Founders' sign-off: "Warmly," + the three handwritten signatures and names. */
+.founders-signoff { margin: 46px auto 0; text-align: center; }
+.signoff-warm {
+  font-family: 'Bembo', Georgia, serif; font-style: italic;
+  font-size: 22px; margin: 0 0 22px !important; color: var(--ink);
+}
+.signoff-row {
+  display: flex; justify-content: center; align-items: flex-end;
+  gap: 56px; flex-wrap: wrap;
+}
+.signoff { margin: 0; display: flex; flex-direction: column; align-items: center; }
+.signoff img { height: 62px; width: auto; display: block; margin-bottom: 12px; }
+.signoff figcaption {
+  font-family: 'Bembo', Georgia, serif; font-size: 14px; letter-spacing: 0.03em;
+  color: var(--ink); white-space: nowrap;
+}
+@media (max-width: 600px) {
+  .signoff-row { gap: 32px; }
+  .signoff img { height: 54px; }
+}
+.editors-prose { max-width: 700px; margin: 0 auto; }
+.editors-prose p { font-size: 19px; line-height: 1.7; }
+.editors-statement {
+  font-family: 'Bembo', Georgia, serif; font-style: italic;
+  font-size: clamp(28px, 3.4vw, 40px); line-height: 1.15; text-align: center;
+  margin: 40px 0 !important; color: var(--ink);
+}
+@media (max-width: 768px) {
+  .editors-hero { margin: 0 32px 36px; }
+}
+
+/* account */
+.account-wrap { padding: 8px 56px 120px; max-width: 480px; }
+.account-form { background: var(--soft); padding: 36px 32px; }
+.account-form label {
+  display: block; font-family: 'Bembo', Georgia, serif; font-size: 10px;
+  letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px;
+}
+.account-form input {
+  width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--ink);
+  font-family: 'Bembo', Georgia, serif; font-size: 18px; padding: 8px 0; outline: none;
+  color: var(--ink); margin-bottom: 24px;
+}
+.account-form button {
+  background: var(--ink); color: var(--paper); border: none; cursor: pointer; width: 100%;
+  font-family: 'Bembo', Georgia, serif; font-size: 11px; letter-spacing: 0.32em;
+  text-transform: uppercase; padding: 16px 32px;
+}
+.account-note {
+  font-family: 'Bembo', Georgia, serif; font-size: 12px; line-height: 1.7;
+  color: var(--ink-soft); margin-top: 16px;
+}
+
+/* affiliate disclosure (footer) */
+.affiliate-disclosure {
+  padding: 22px 56px; border-top: 1px solid rgba(255,255,255,0.12);
+  font-family: 'Bembo', Georgia, serif; font-size: 11px; line-height: 1.6;
+  color: rgba(255,255,255,0.5); max-width: 880px;
+}
+
+/* cookie consent */
+.consent {
+  position: fixed; left: 24px; right: 24px; bottom: 24px; z-index: 1100;
+  background: var(--ink); color: var(--paper);
+  padding: 22px 26px; display: flex; align-items: center; gap: 28px;
+  flex-wrap: wrap; box-shadow: 0 18px 50px rgba(0,0,0,0.3);
+}
+.consent p {
+  font-family: 'Bembo', Georgia, serif; font-size: 12.5px; line-height: 1.6;
+  color: rgba(255,255,255,0.82); flex: 1; min-width: 280px; margin: 0;
+}
+.consent-actions { display: flex; gap: 12px; }
+.consent button {
+  font-family: 'Bembo', Georgia, serif; font-size: 10px; letter-spacing: 0.26em;
+  text-transform: uppercase; padding: 13px 22px; cursor: pointer; border: 1px solid var(--paper);
+}
+.consent .accept { background: var(--paper); color: var(--ink); }
+.consent .decline { background: transparent; color: var(--paper); }
+
+@media (max-width: 1024px) {
+  .page-head, .prose, .legal, .empty-edit, .shop-rail-head, .article-meta, .account-wrap, .article-sections { padding-left: 32px; padding-right: 32px; }
+  .article-hero { margin: 0 32px 36px; }
+  .guide-grid { grid-template-columns: 1fr 1fr; padding: 8px 32px 64px; }
+  .founders { grid-template-columns: 1fr; gap: 36px; padding: 8px 32px 80px; }
+}
+
+/* ===== Editorial cards (per-section editorials) ===== */
+.ed-band { padding: 48px 0 32px; border-top: 1px solid var(--line); }
+/* Tighten the gap when the Editorials band follows a product grid directly
+   (e.g. the Culture page): the grid's large bottom padding + this band's top
+   padding otherwise leave too much empty space between the two. */
+.edit-band:has(+ .ed-band) { padding-bottom: 30px; }
+.edit-band + .ed-band { padding-top: 30px; }
+/* Highlighted editorials band (Culture): soft background + headline so it stands
+   apart from the products grid above and isn't overlooked. */
+.ed-band-highlight { background: var(--soft); border-top: none; margin-top: 24px; padding: 46px 0 44px; }
+.ed-headline {
+  font-family: 'Bembo', Georgia, serif; font-style: italic; font-weight: 400;
+  font-size: clamp(26px, 3.4vw, 40px); line-height: 1.05; color: var(--ink); margin: 0;
+}
+.ed-head { padding: 0 56px 24px; }
+.ed-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px 32px; padding: 0 56px; }
+.ed-card { display: block; text-decoration: none; color: inherit; }
+.ed-card-img { aspect-ratio: 4/3; background: var(--soft); overflow: hidden; margin-bottom: 16px; }
+.ed-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.ed-card:hover .ed-card-img img { transform: scale(1.03); }
+.ed-card-kicker {
+  font-family: 'Bembo', Georgia, serif; font-size: 10px; letter-spacing: 0.28em;
+  text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px;
+}
+.ed-card-title {
+  font-family: 'Bembo', Georgia, serif; font-style: italic; font-size: 26px; line-height: 1.05;
+}
+
+/* ===== Photo grid (Travel section + city guides) ===== */
+.photo-band { padding: 44px 0 48px; }
+.photo-head { padding: 0 56px 22px; }
+.photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 0 56px; }
+.photo-cell { aspect-ratio: 1 / 1; background: var(--soft); overflow: hidden; margin: 0; }
+.photo-cell img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+.photo-cell:hover img { transform: scale(1.04); }
+
+@media (max-width: 1024px) {
+  .ed-grid { grid-template-columns: 1fr 1fr; padding: 0 32px; }
+  .ed-head, .photo-head { padding-left: 32px; padding-right: 32px; }
+  .photo-grid { padding: 0 32px; }
+}
+@media (max-width: 600px) {
+  .ed-grid { grid-template-columns: 1fr; }
+  .photo-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ===== Mobile nav — keep the logo centred and uncramped ===== */
+@media (max-width: 768px) {
+  .nav { padding: 14px 16px 0; }
+  .nav-row { margin-bottom: 10px; }
+  .nav-left, .nav-right { gap: 13px; font-size: 13px; }
+  .nav-menu .nav-menu-icon { width: 20px; }
+  .nav-menu span:last-child { display: none; }        /* hide the word "Menu", keep the hamburger */
+  .nav-right span.nav-icon { display: none; }          /* drop the decorative ◯ to make room for Subscribe + Wishlist */
+  /* Make the membership CTA clearly visible on mobile (a bordered pill, not plain text). */
+  .nav-right .nav-textbtn {
+    border: 1px solid var(--ink); padding: 5px 11px; font-weight: 700;
+    letter-spacing: 0.03em; line-height: 1;
+  }
+  .logo img { height: 30px; }
+  .nav-cats { display: block; text-align: center; gap: 0; padding: 8px 12px 12px; overflow: visible; }
+  .nav-cats a { display: inline-block; margin: 5px 9px; font-size: 14px; }
+}
+@media (max-width: 420px) {
+  .nav-cats a { font-size: 13px; margin: 4px 7px; }
+  .logo img { height: 27px; }
+  .nav { padding: 14px 12px 0; }
+  .nav-left, .nav-right { gap: 11px; font-size: 12px; }   /* keep Subscribe + Wishlist + search on one line */
+}
