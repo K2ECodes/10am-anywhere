@@ -20,11 +20,27 @@ const PUBLISHER_ID = process.env.AWIN_PUBLISHER_ID;
 // "Advertiser ID" shown in Awin › Toolbox. (Vilebrequin runs per-region
 // programmes: DE 70915, FR 70913 — using DE for the .com domain.)
 const ADVERTISERS: Record<string, string> = {
-  "tusting.co.uk": "123482",
-  "vilebrequin.com": "70915",
+  // Joined programmes, verified against the Awin API on 2026-10-06
+  // (GET /publishers/2935271/programmes?relationship=joined).
+  "breuninger.com": "11590", // Breuninger DE
+  "victoriabeckham.com": "28663", // Victoria Beckham EU
+  "smallable.com": "119083", // Smallable UK (tracks the .com shop)
+  "adidas.de": "77004", // adidas DE
+  "adidas.it": "77014",
+  "adidas.fr": "77010",
+  "adidas.es": "77008",
+  "adidas.nl": "77016",
+  "adidas.pl": "77006",
   "adidas.sk": "77024",
-  // pending joins (fill awinmid when approved): sezane.com, smallable.com,
-  // reformation.com, nordicnest.com, getyourguide.com, bookshop.org …
+  "douglas.de": "10076", // Douglas DE
+  "windsor.de": "10970",
+  "bellafreud.com": "80453",
+  "oliviavonhalle.com": "101469",
+  "sweatybetty.com": "32539",
+  "tusting.co.uk": "123482",
+  "vilebrequin.com": "70915", // DE programme; FR is 70913
+  // Pending approval (add when Awin accepts): sezane.com, niche-beauty.com,
+  // lodenfrey.com, agolde.com, paristexas.com, glambou.com …
 };
 
 function hostOf(url: string): string {
