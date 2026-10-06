@@ -23,7 +23,7 @@ import {
   editorialsByCategory,
   galleryByCategory,
 } from "./seed";
-import type { EditorialRef } from "./types";
+import type { EditorialRef, HomepageData } from "./types";
 import { sanityEnabled } from "./sanity/client";
 
 // Single content boundary for the app. When a Sanity project id is set
@@ -218,4 +218,28 @@ export async function getCityGuideBySlug(slug: string): Promise<CityGuide | null
     }
   }
   return slug === seedCityGuide.slug ? seedCityGuide : null;
+}
+
+// Homepage bands (Picks of the Week, What's On, feature edit). Sanity first; the
+// seed fallback keeps the page whole when Sanity is off or unreachable.
+export async function getHomepage(): Promise<HomepageData> {
+  if (sanityEnabled) {
+    try {
+      const { fetchHomepage } = await import("./sanity/queries");
+      const home = await fetchHomepage();
+      if (home) return home;
+    } catch (err) {
+      console.error("[content] getHomepage Sanity fetch failed, using seed:", err);
+    }
+  }
+  return {
+    picks: { title: "Our Picks of the Week", seconds: 1, products: seedEdit.products.slice(0, 3) },
+    whatsOn: { title: "What's On?", items: editorialsByCategory("culture").slice(0, 2) },
+    feature: {
+      title: "Fall for Men",
+      href: "/men",
+      linkLabel: "See all Men",
+      products: seedMenEdit.products.slice(0, 8),
+    },
+  };
 }

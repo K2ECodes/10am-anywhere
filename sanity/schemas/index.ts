@@ -237,4 +237,70 @@ export const cityGuide = {
   ],
 };
 
-export const schemaTypes = [category, product, edit, editor, article, cityGuide, place];
+
+// Homepage: one fixed document (id "homepage") that editors change on a rhythm.
+// Picks of the week change weekly, What's On every two weeks, and the feature
+// edit (Men or Beauty) every month or so. Every field is optional: anything left
+// empty falls back to sensible defaults on the site (see lib/sanity/queries.ts).
+export const homepage = {
+  name: "homepage",
+  title: "Homepage",
+  type: "document",
+  fieldsets: [
+    { name: "picks", title: "Our Picks of the Week (changes weekly)", options: { collapsible: true } },
+    { name: "whatsOn", title: "What's On (changes every two weeks)", options: { collapsible: true } },
+    { name: "feature", title: "Feature edit, Men or Beauty (changes monthly)", options: { collapsible: true } },
+  ],
+  fields: [
+    { name: "picksTitle", title: "Headline", type: "string", initialValue: "Our Picks of the Week", fieldset: "picks" },
+    {
+      name: "picks",
+      title: "Three products",
+      description: "Shown one after another in a loop. Empty: the first three products of the current edit.",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "product" }] }],
+      validation: (r: any) => r.max(3),
+      fieldset: "picks",
+    },
+    {
+      name: "picksSeconds",
+      title: "Seconds per product",
+      type: "number",
+      initialValue: 1,
+      validation: (r: any) => r.min(0.5).max(10),
+      fieldset: "picks",
+    },
+    { name: "whatsOnTitle", title: "Headline", type: "string", initialValue: "What's On?", fieldset: "whatsOn" },
+    {
+      name: "whatsOn",
+      title: "Two culture or travel stories",
+      description: "Empty: the two newest culture stories.",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "article" }, { type: "cityGuide" }] }],
+      validation: (r: any) => r.max(2),
+      fieldset: "whatsOn",
+    },
+    { name: "featureTitle", title: "Headline", type: "string", initialValue: "Fall for Men", fieldset: "feature" },
+    {
+      name: "featureCategory",
+      title: "Category",
+      description: "Men or Beauty. Sets the \"See all\" link and the automatic product list.",
+      type: "reference",
+      to: [{ type: "category" }],
+      fieldset: "feature",
+    },
+    { name: "featureImage", title: "Image (optional)", type: "image", options: { hotspot: true }, fieldset: "feature" },
+    {
+      name: "featureProducts",
+      title: "Products (up to 8)",
+      description: "Empty: the eight newest products in the category above.",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "product" }] }],
+      validation: (r: any) => r.max(8),
+      fieldset: "feature",
+    },
+  ],
+  preview: { prepare: () => ({ title: "Homepage" }) },
+};
+
+export const schemaTypes = [homepage, category, product, edit, editor, article, cityGuide, place];

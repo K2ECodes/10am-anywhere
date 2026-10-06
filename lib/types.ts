@@ -156,3 +156,17 @@ export interface EditorialRef {
   category: string;
   kicker: string;
 }
+
+/** The homepage's editor-controlled sections (Sanity "homepage" document). */
+export interface HomepageData {
+  picks: { title: string; seconds: number; products: Product[] };
+  whatsOn: { title: string; items: EditorialRef[] };
+  feature: {
+    title: string;
+    image?: string;
+    /** Where "See all" goes, e.g. /men or /category/beauty. */
+    href: string;
+    linkLabel: string;
+    products: Product[];
+  };
+}

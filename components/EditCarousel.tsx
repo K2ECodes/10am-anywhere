@@ -26,7 +26,7 @@ export default function EditCarousel({ edits }: { edits: Edit[] }) {
             aria-label="Previous edit"
             onClick={() => go(-1)}
           >
-            <span aria-hidden="true">‹</span>
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M15 4 7 12l8 8" /></svg>
           </button>
         ) : null}
 
@@ -53,7 +53,7 @@ export default function EditCarousel({ edits }: { edits: Edit[] }) {
             aria-label="Next edit"
             onClick={() => go(1)}
           >
-            <span aria-hidden="true">›</span>
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M9 4l8 8-8 8" /></svg>
           </button>
         ) : null}
       </section>

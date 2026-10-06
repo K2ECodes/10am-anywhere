@@ -1,29 +1,19 @@
 import Link from "next/link";
 import type { EditorialRef } from "@/lib/types";
 
-// Editorials that belong to a section (e.g. "10am in Lisbon" under Travel).
-// `highlight` gives the band a distinct background + headline so it doesn't get
-// overlooked (used on Culture, where it sits below the products grid).
-export default function EditorialCards({
-  items,
-  label = "Editorials",
-  highlight = false,
-}: {
-  items: EditorialRef[];
-  label?: string;
-  highlight?: boolean;
-}) {
+// "What's On?": a two-story teaser for the culture (and travel) notes, linking
+// each story directly plus the full "What's on now" list on the Culture page.
+export default function WhatsOn({ title, items }: { title: string; items: EditorialRef[] }) {
   if (!items.length) return null;
   return (
-    <section className={`ed-band${highlight ? " ed-band-highlight" : ""}`} id={highlight ? "whats-on" : undefined}>
-      <div className="ed-head">
-        {highlight ? (
-          <h2 className="ed-headline">{label}</h2>
-        ) : (
-          <div className="page-kicker">{label}</div>
-        )}
+    <section className="whatson" aria-label={title}>
+      <div className="whatson-head">
+        <h2 className="home-script">{title}</h2>
+        <Link href="/category/culture#whats-on" className="home-more">
+          See what&rsquo;s on now
+        </Link>
       </div>
-      <div className="ed-grid">
+      <div className="whatson-grid">
         {items.map((e) => (
           <Link
             key={e.kind + e.slug}

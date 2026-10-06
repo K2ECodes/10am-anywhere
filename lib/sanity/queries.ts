@@ -1,4 +1,4 @@
-import type { Edit, MenEdit, Product, Department, Founder, Article, CityGuide, EditorialRef } from "../types";
+import type { Edit, MenEdit, Product, Department, Founder, Article, CityGuide, EditorialRef, HomepageData } from "../types";
 import { sanityClient } from "./client";
 import { urlForImage } from "./image";
 
@@ -350,5 +350,89 @@ export async function fetchCityGuideBySlug(slug: string): Promise<CityGuide | nu
     do: g.do ?? [],
     shop: g.shop ?? [],
     gallery: ((g.gallery as unknown[]) ?? []).map((img) => urlForImage(img) ?? "").filter(Boolean),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Homepage sections (Picks of the Week, What's On, feature edit). Every field in
+// the "homepage" document is optional; anything empty falls back here so the
+// homepage never shows a blank band:
+//   picks        -> first three active products of the latest published edit
+//   whatsOn      -> the two newest culture stories
+//   feature      -> category Men, the eight newest products in that category
+// ---------------------------------------------------------------------------
+const EDITORIAL_REF_PROJECTION = `{
+  _type, "slug": slug.current,
+  "title": select(_type == "cityGuide" => "10am in " + city, title),
+  heroImage, "catName": category->name,
+  "isCulture": category->slug.current == "culture"
+}`;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function mapEditorialRef(r: any): EditorialRef {
+  return {
+    kind: r._type === "cityGuide" ? "guide" : "article",
+    slug: r.slug,
+    title: r.title,
+    image: r.heroImage ? urlForImage(r.heroImage) ?? "" : "",
+    category: r.catName ?? "",
+    kicker: r._type === "cityGuide" ? "A 10am city guide" : r.isCulture ? "A 10am culture note" : "A 10am editorial",
+  };
+}
+
+const activeProducts = (arr: (RawProduct | null)[] | undefined): Product[] =>
+  (arr ?? []).filter((p): p is RawProduct => p != null && p.active !== false).map(mapProduct);
+
+export async function fetchHomepage(): Promise<HomepageData | null> {
+  if (!sanityClient) return null;
+  const d = await sanityClient.fetch(
+    `{
+      "home": *[_type == "homepage" && _id == "homepage"][0]{
+        picksTitle, picksSeconds,
+        "picks": picks[]->${PRODUCT_PROJECTION},
+        whatsOnTitle,
+        "whatsOn": whatsOn[]->${EDITORIAL_REF_PROJECTION},
+        featureTitle, featureImage,
+        "featureCat": featureCategory->{ name, "slug": slug.current },
+        "featureProducts": featureProducts[]->${PRODUCT_PROJECTION}
+      },
+      "editPicks": *[_type == "edit" && status == "published"] | order(publishDate desc)[0].featuredProducts[]->${PRODUCT_PROJECTION},
+      "culture": *[(_type == "article" || _type == "cityGuide") && category->slug.current == "culture" && defined(slug.current)] | order(_createdAt desc)[0...2]${EDITORIAL_REF_PROJECTION}
+    }`
+  );
+  const home = d?.home ?? {};
+
+  let picks = activeProducts(home.picks).slice(0, 3);
+  if (picks.length === 0) picks = activeProducts(d?.editPicks).slice(0, 3);
+
+  let whatsOn = (home.whatsOn ?? []).filter((r: unknown) => r != null).map(mapEditorialRef).slice(0, 2);
+  if (whatsOn.length === 0) whatsOn = (d?.culture ?? []).map(mapEditorialRef);
+
+  const catSlug: string = home.featureCat?.slug ?? "men";
+  const catName: string = home.featureCat?.name ?? "Men";
+  let featureProducts = activeProducts(home.featureProducts).slice(0, 8);
+  if (featureProducts.length === 0) {
+    const rows = await sanityClient.fetch(
+      `*[_type == "product" && category->slug.current == $cat && active != false] | order(_createdAt desc)[0...8]${PRODUCT_PROJECTION}`,
+      { cat: catSlug }
+    );
+    featureProducts = (rows ?? []).map(mapProduct);
+  }
+
+  return {
+    picks: {
+      title: home.picksTitle || "Our Picks of the Week",
+      seconds: typeof home.picksSeconds === "number" && home.picksSeconds > 0 ? home.picksSeconds : 1,
+      products: picks,
+    },
+    whatsOn: { title: home.whatsOnTitle || "What's On?", items: whatsOn },
+    feature: {
+      title: home.featureTitle || (catSlug === "men" ? "Fall for Men" : catName),
+      image: home.featureImage ? urlForImage(home.featureImage) ?? undefined : undefined,
+      // Men has its own page; every other category lives under /category/<slug>.
+      href: catSlug === "men" ? "/men" : `/category/${catSlug}`,
+      linkLabel: `See all ${catName}`,
+      products: featureProducts,
+    },
   };
 }

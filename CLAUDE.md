@@ -111,6 +111,15 @@ queries and `studio/sanity.config.ts` — one source of truth.
 - **`article`** — editorial. Flat `body[]` **plus** an optional `sections[]` array
   (kicker / heading / image / body / links) for the recurring column format used by
   the Culture notes. `gated` for members-only.
+- **`homepage`** — one fixed document (`_id: "homepage"`, pinned top of the Studio,
+  no create/delete/duplicate). Drives the homepage bands from Silke's sketch, in
+  order under the edit carousel: **Our Picks of the Week** (3 product refs, loop at
+  `picksSeconds`, default 1s, weekly), **What's On?** (2 article/cityGuide refs,
+  fortnightly, "See what's on now" jumps to `/category/culture#whats-on`) and the
+  **feature edit** (Men or Beauty: title, optional image, category, up to 8
+  products, monthly). Every field is optional; empties fall back in
+  `fetchHomepage()` (picks: first 3 of the latest edit; What's On: 2 newest
+  culture stories; feature: 8 newest products in the category, default Men).
 - **`category`**, **`editor`**, **`cityGuide`**.
 
 Editors can override a product's tile size via `gridSize`; the grid otherwise
@@ -259,9 +268,6 @@ suppress the 3-second popup; click "Essential only"/"Accept all" to control cons
 ## Open items
 
 - Culture/Travel gate: decide whether to remove it (recommended) — see above.
-- Homepage redesign requested by Silke: an "Our Picks of the Week" band (coloured
-  background, headline, white square rotating 3 items at 1s each) plus a second
-  featured edit (Beauty/Interior/Men). Needs decisions on the pick source and category.
 - Flodesk sending domain is not authenticated → emails land in spam. Fix with the
   DKIM/CNAME records from Flodesk → Account → Domain authentication.
 - Several products still lack prices / exact affiliate URLs.
