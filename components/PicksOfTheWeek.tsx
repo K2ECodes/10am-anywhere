@@ -6,7 +6,7 @@ import { formatPrice } from "@/lib/format";
 import { trackAffiliateClick } from "@/lib/track";
 
 // "Our Picks of the Week": a coloured band with a script headline and a white
-// square that shows three products one after another, in a loop. Each product
+// square that shows three or four products one after another, in a loop. Each product
 // links out through /go like every other card. The loop pauses while the reader
 // hovers or focuses it, and stays still for anyone who prefers reduced motion
 // (the dots remain, so every pick is still reachable).

@@ -357,7 +357,7 @@ export async function fetchCityGuideBySlug(slug: string): Promise<CityGuide | nu
 // Homepage sections (Picks of the Week, What's On, feature edit). Every field in
 // the "homepage" document is optional; anything empty falls back here so the
 // homepage never shows a blank band:
-//   picks        -> first three active products of the latest published edit
+//   picks        -> 3 or 4 chosen products; empty: first three of the latest edit
 //   whatsOn      -> the two newest culture stories
 //   feature      -> category Men, the eight newest products in that category
 // ---------------------------------------------------------------------------
@@ -402,7 +402,7 @@ export async function fetchHomepage(): Promise<HomepageData | null> {
   );
   const home = d?.home ?? {};
 
-  let picks = activeProducts(home.picks).slice(0, 3);
+  let picks = activeProducts(home.picks).slice(0, 4);
   if (picks.length === 0) picks = activeProducts(d?.editPicks).slice(0, 3);
 
   let whatsOn = (home.whatsOn ?? []).filter((r: unknown) => r != null).map(mapEditorialRef).slice(0, 2);

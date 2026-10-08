@@ -255,11 +255,11 @@ export const homepage = {
     { name: "picksTitle", title: "Headline", type: "string", initialValue: "Our Picks of the Week", fieldset: "picks" },
     {
       name: "picks",
-      title: "Three products",
-      description: "Shown one after another in a loop. Empty: the first three products of the current edit.",
+      title: "Products (3 or 4)",
+      description: "Add 3 or 4. Shown one after another in a loop. Empty: the first three products of the current edit.",
       type: "array",
       of: [{ type: "reference", to: [{ type: "product" }] }],
-      validation: (r: any) => r.max(3),
+      validation: (r: any) => r.max(4),
       fieldset: "picks",
     },
     {
