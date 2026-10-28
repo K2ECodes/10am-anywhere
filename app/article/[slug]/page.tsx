@@ -4,12 +4,45 @@ import EditGrid from "@/components/EditGrid";
 import NewsletterGate from "@/components/NewsletterGate";
 import { isSubscribed } from "@/lib/newsletter-gate";
 import { getArticleBySlug } from "@/lib/content";
+import { JsonLd, SITE_URL, breadcrumbs } from "@/lib/seo";
+import type { Article } from "@/lib/types";
+
+function articleLd(a: Article, gated: boolean) {
+  const url = `${SITE_URL}/article/${a.slug}`;
+  return [
+    {
+      "@type": "Article",
+      "@id": `${url}#article`,
+      url,
+      headline: a.title,
+      description: a.dek || undefined,
+      image: a.heroImage || undefined,
+      articleSection: a.category,
+      author: a.author ? { "@type": "Person", name: a.author } : { "@id": `${SITE_URL}/#org` },
+      publisher: { "@id": `${SITE_URL}/#org` },
+      isPartOf: { "@id": `${SITE_URL}/#website` },
+      inLanguage: "en",
+      // The section headings tell answer engines what the story covers even
+      // where the full text is members-only.
+      about: a.sections.filter((s) => s.heading).map((s) => ({ "@type": "Thing", name: s.heading })),
+      isAccessibleForFree: !gated,
+      ...(gated ? { hasPart: { "@type": "WebPageElement", isAccessibleForFree: false, cssSelector: ".nl-gate" } } : {}),
+    },
+    breadcrumbs([{ name: "10am", path: "/" }, { name: a.category, path: `/category/${a.category.toLowerCase()}` }, { name: a.title, path: `/article/${a.slug}` }]),
+  ];
+}
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const a = await getArticleBySlug(params.slug);
-  return { title: a ? `${a.title} · 10am` : "10am" };
+  if (!a) return { title: "10am" };
+  return {
+    title: `${a.title} · 10am`,
+    description: a.dek || undefined,
+    alternates: { canonical: `/article/${params.slug}` },
+    openGraph: { type: "article", title: a.title, description: a.dek || undefined, url: `/article/${params.slug}`, images: a.heroImage ? [a.heroImage] : undefined },
+  };
 }
 
 export default async function ArticlePage({ params }: { params: { slug: string } }) {
@@ -18,11 +51,17 @@ export default async function ArticlePage({ params }: { params: { slug: string }
 
   // Culture articles are members-only, matching the gated Culture section.
   if (article.category.toLowerCase() === "culture" && !isSubscribed()) {
-    return <NewsletterGate section="Culture" />;
+    return (
+      <>
+        <JsonLd data={articleLd(article, true)} />
+        <NewsletterGate section="Culture" />
+      </>
+    );
   }
 
   return (
     <article>
+      <JsonLd data={articleLd(article, false)} />
       <header className="page-head page-narrow" style={{ textAlign: "center" }}>
         <div className="page-kicker">{article.category} · A 10am editorial</div>
         <h1 className="page-title" dangerouslySetInnerHTML={{ __html: article.titleHtml }} />

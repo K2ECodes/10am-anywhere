@@ -1,0 +1,938 @@
+{
+ "edits": [
+  {
+   "cover": "https://cdn.sanity.io/images/3fb6egil/production/410b2ef0c409128a1880196fe1680efbb7c826e5-1200x500.png",
+   "description": null,
+   "issueNumber": 17,
+   "products": [
+    {
+     "brand": "Tabitha Simmons x Cabana",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/11ca585062b8770fc5b30abc65819ea35cd654d6-1080x1350.png",
+     "name": "Linen Tablecloth",
+     "network": null,
+     "price": 390,
+     "slug": "tabitha-simmons-x-cabana-linen-tablecloth"
+    },
+    {
+     "brand": "Tabitha Simmons x Cabana",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/4c429fa9b9c0d5b59f22bf8721bd67c3b2f6da8b-1080x1350.png",
+     "name": "Linen Napkins",
+     "network": null,
+     "price": 110,
+     "slug": "tabitha-simmons-x-cabana-linen-napkins"
+    },
+    {
+     "brand": "Olsson & Jensen",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/1f9eabce619543f696332279e51fda967d60e6a9-1080x1350.png",
+     "name": "Ziggy Cocktail Glasses",
+     "network": null,
+     "price": 81,
+     "slug": "olsson-and-jensen-ziggy-cocktail-glasses"
+    },
+    {
+     "brand": "Cabana",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/f872cfdc6eaa5df5b45f0b0037469b76da25428c-1080x1350.png",
+     "name": "Strie Ribbed Carafe",
+     "network": null,
+     "price": 60,
+     "slug": "cabana-strie-ribbed-carafe"
+    },
+    {
+     "brand": "Cabana",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/a11e6c05c167fd2b0811ff86a5092192d1456617-1080x1350.png",
+     "name": "Marmo Cutlery Set",
+     "network": null,
+     "price": 165,
+     "slug": "cabana-marmo-cutlery-set"
+    },
+    {
+     "brand": "Nason Moretti",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/b0db7ff1d21a9f0b3049a68cc71b60dc7596356d-1080x1350.png",
+     "name": "Macramé Hand-Blown Murano Glass Tealight Holders",
+     "network": null,
+     "price": 410,
+     "slug": "nason-moretti-macrame-hand-blown-murano-glass-tealight-holders"
+    },
+    {
+     "brand": "Cabana",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/70d933ef926dcf53ee89df4521dda766b37e0b81-1080x1350.png",
+     "name": "Catalina Linen Tablecloth",
+     "network": null,
+     "price": 350,
+     "slug": "cabana-catalina-linen-tablecloth"
+    },
+    {
+     "brand": "DOLCE & GABBANA CASA",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/ba30ea738b97c361c754754e528ffa9999d34abf-1080x1350.png",
+     "name": "Espresso Set",
+     "network": null,
+     "price": 100,
+     "slug": "dolce-and-gabbana-casa-espresso-set"
+    },
+    {
+     "brand": "Olsson & Jensen",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/83964d31f840411cf4d892b9032c07827b064e0e-1080x1350.png",
+     "name": "Svala Stainless Steel Cutlery Set",
+     "network": null,
+     "price": 40,
+     "slug": "olsson-and-jensen-svala-stainless-steel-cutlery-set"
+    },
+    {
+     "brand": "&k amsterdam",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/98308300a4dba6f740e1963387dcda7e55cb164f-1080x1350.png",
+     "name": "Champagne Glass Set",
+     "network": null,
+     "price": 29.99,
+     "slug": "and-k-amsterdam-champagne-glass-set"
+    },
+    {
+     "brand": "Royal Limoges",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/651ee84491848d4554e96a2bb1a07b6ac300ec6e-1080x1350.png",
+     "name": "Olivier vert - Assiette plate",
+     "network": null,
+     "price": 98,
+     "slug": "royal-limoges-olivier-vert-assiette-plate"
+    },
+    {
+     "brand": "Tavares 1922",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/ea4424af26df71547b92ae180424aa8b843b06d5-1080x1350.png",
+     "name": "Wood Fruits Pomegranate ",
+     "network": null,
+     "price": 510,
+     "slug": "tavares-1922-wood-fruits-pomegranate"
+    },
+    {
+     "brand": "Riedel",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/956e7ac035c800681a87a9e027b676307f1520fe-1080x1350.png",
+     "name": "Curly Decanter",
+     "network": null,
+     "price": 249.99,
+     "slug": "riedel-curly-decanter"
+    },
+    {
+     "brand": "Jotex",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/26760680f2655a1847835bc933ae58b85c4fea49-1080x1350.png",
+     "name": "Pear Vase",
+     "network": null,
+     "price": 109.99,
+     "slug": "jotex-pear-vase"
+    },
+    {
+     "brand": "Maison Flâneur",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/436512680699f504a199e4423744fefc39668f69-1080x1350.png",
+     "name": " Amber & Pink Beaded Glass Spoon",
+     "network": null,
+     "price": 35.95,
+     "slug": "maison-flaneur-amber-and-pink-beaded-glass-spoon"
+    },
+    {
+     "brand": "Helecho Collective",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/3ffbe089c30b58604132710432f71a90f65996a8-1080x1350.png",
+     "name": "The Forest Sand Napkins by Muzaluci",
+     "network": null,
+     "price": 30.95,
+     "slug": "helecho-collective-the-forest-sand-napkins-by-muzaluci"
+    },
+    {
+     "brand": "Eva Solo",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/9b1f9a20a1cef7c37fea63c0ea7f5cdc22161f4b-1080x1350.png",
+     "name": "Corkscrew",
+     "network": null,
+     "price": 39.99,
+     "slug": "eva-solo-corkscrew"
+    },
+    {
+     "brand": "HK Living",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/04b0944dc3bccc8875d3d95e356a0c01052d8362-1080x1350.png",
+     "name": "Standing glasses yellow",
+     "network": null,
+     "price": 45,
+     "slug": "hk-living-standing-glasses-yellow"
+    },
+    {
+     "brand": "Mrs. Alice",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/c466eba4ecbf05ce2d3185a1b8c0ee59bd466510-1080x1350.png",
+     "name": "Scalloped Pheasant Dinner Plates",
+     "network": null,
+     "price": 200.95,
+     "slug": "mrs-alice-scalloped-pheasant-dinner-plates"
+    },
+    {
+     "brand": "Mrs. Alice",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/40768a6273693fb53d31c9cf42b17b38c9136250-1080x1350.png",
+     "name": "Green Small Eden Candle Holders ",
+     "network": null,
+     "price": 60.95,
+     "slug": "mrs-alice-green-small-eden-candle-holders"
+    },
+    {
+     "brand": "Objet Luxe",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/84e9920769f49985b297b0873518e8e09e755812-1080x1350.png",
+     "name": "Sea Turtle Silver-Plated and Shell Napkin Rings",
+     "network": null,
+     "price": 655,
+     "slug": "objet-luxe-sea-turtle-silver-plated-and-shell-napkin-rings"
+    },
+    {
+     "brand": "Zara Home",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/f83618ddaf6fe6d6ec4c245922767374990dd9f4-1200x1284.png",
+     "name": "Mirrored Coasters",
+     "network": null,
+     "price": 17.99,
+     "slug": "zara-home-mirrored-coasters"
+    },
+    {
+     "brand": "Bordallo Pinheiro",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/693f3fc536eb9050e7941c4cb81b34396ece9368-1080x1350.png",
+     "name": "Terrine Cabbage",
+     "network": null,
+     "price": 165,
+     "slug": "bordallo-pinheiro-terrine-cabbage"
+    },
+    {
+     "brand": "Au Bain Marie",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/ea2340287136b0e1763aab531da4d0cf09185cb3-1080x1350.png",
+     "name": "Owl Pewter Honey Jar with Spoon",
+     "network": null,
+     "price": 250,
+     "slug": "au-bain-marie-owl-pewter-honey-jar-with-spoon"
+    },
+    {
+     "brand": "Suleika Jaouad & Jon Batiste",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/361cb50877c5262b453b51378059ec57082789c0-1080x1350.png",
+     "name": "Mixed Glasses",
+     "network": null,
+     "price": 90,
+     "slug": "suleika-jaouad-and-jon-batiste-mixed-glasses"
+    },
+    {
+     "brand": "Sulieka Jaouad & Jon Batiste",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/0cbae9a183a3be5b628587af464b6d5e585b4401-1080x1350.png",
+     "name": "Double Old Fashioned Glasses",
+     "network": null,
+     "price": 90,
+     "slug": "sulieka-jaouad-and-jon-batiste-double-old-fashioned-glasses"
+    },
+    {
+     "brand": "Anut Cairo",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/3b88089cb24770f9331f24fde2915f7728e71088-1080x1350.png",
+     "name": "Taya Hand-Painted Fayoum Pottery Platter",
+     "network": null,
+     "price": 231,
+     "slug": "anut-cairo-taya-hand-painted-fayoum-pottery-platter"
+    },
+    {
+     "brand": "Anut Cairo",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/504072071a952f26bbc0e72e9abd5e9ece4e7b41-1080x1350.png",
+     "name": "Dancing Palm Hand-Painted Fayoum Pottery Dinner Plate",
+     "network": null,
+     "price": 161,
+     "slug": "anut-cairo-dancing-palm-hand-painted-fayoum-pottery-dinner-plate"
+    },
+    {
+     "brand": "Anut Cairo",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/24157f368717d371cc74e03beb5fc1d8333103c3-1080x1350.png",
+     "name": "Candelabra Hand-Painted Fayoum Pottery ",
+     "network": null,
+     "price": 576,
+     "slug": "anut-cairo-candelabra-hand-painted-fayoum-pottery"
+    },
+    {
+     "brand": "The House of Lyria",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/44f6a0897c5bc3b11d8004296e57f802e45d8cb2-1080x1350.png",
+     "name": "Tormento linen tablecloth",
+     "network": null,
+     "price": 815,
+     "slug": "the-house-of-lyria-tormento-linen-tablecloth"
+    },
+    {
+     "brand": "The House of Lyria",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/9b68edaa0d424321d95b40573255155f1986b599-1080x1350.png",
+     "name": "Hoya set of 2 floral linen napkins",
+     "network": null,
+     "price": 166,
+     "slug": "the-house-of-lyria-hoya-set-of-2-floral-linen-napkins"
+    },
+    {
+     "brand": "Maison Flâneur",
+     "cat": "Interior",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/7277148a9b2d943634a5cb5f89420a458eb0d6fc-1080x1350.png",
+     "name": "Does Anybody Coaster",
+     "network": null,
+     "price": 31.95,
+     "slug": "maison-flaneur-does-anybody-coaster"
+    }
+   ],
+   "publishDate": null,
+   "slug": "dinner-parties",
+   "title": "Dinner Parties"
+  },
+  {
+   "cover": "https://cdn.sanity.io/images/3fb6egil/production/56060a6e8c579614f57d9e24bf57b3840983e859-1200x500.png",
+   "description": null,
+   "issueNumber": 16,
+   "products": [
+    {
+     "brand": "Des_Phemmes",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/6d412a30d1623cd3acb699410fa30d9c5eb6a13b-1080x1350.png",
+     "name": "Midi Sequin Skirt",
+     "network": null,
+     "price": 285,
+     "slug": "des_phemmes-midi-rock-skirt"
+    },
+    {
+     "brand": "Vince",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/0f884d67d09611877ddf31a29b8994b64d38e8b1-1080x1350.png",
+     "name": "Skirt with sequin",
+     "network": null,
+     "price": 199.99,
+     "slug": "vince-skirt-with-sequin"
+    },
+    {
+     "brand": "Zara",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/07672dad7693f9a3098d7f0e95587775f8087e8b-1080x1350.png",
+     "name": "Sequin Skirt",
+     "network": null,
+     "price": 45.95,
+     "slug": "zara-sequin-skirt"
+    },
+    {
+     "brand": "Zara",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/ad3cc71fe4456ec0da40fb77bd434bff0ccce9df-1080x1350.png",
+     "name": "Sequin Midi Skirt",
+     "network": null,
+     "price": 49.95,
+     "slug": "zara-sequin-midi-skirt"
+    },
+    {
+     "brand": "Style Republic",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/703a1af4e6eb42392c0a30cf6623cb61a068b481-1080x1350.png",
+     "name": "Black Jumper",
+     "network": null,
+     "price": 89,
+     "slug": "style-republic-black-jumper"
+    },
+    {
+     "brand": "By Far",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/30d72c45d3cd88abc1d658bb73ec053db594a8b4-1080x1350.png",
+     "name": "Mini Longa Bag Leather",
+     "network": null,
+     "price": 494,
+     "slug": "by-far-mini-longa-bag-leather"
+    },
+    {
+     "brand": "Victoria Beckham",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/515c34bde09ff521fef44394c48b81a13464b4f6-672x684.png",
+     "name": "D'Orsay Pump 55 Black Croc Leather",
+     "network": null,
+     "price": 580,
+     "slug": "victoria-beckham-d-orsay-pump-55-black-croc-leather"
+    },
+    {
+     "brand": "Victoria Beckham",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/0ad18bcd1d189fac41203c0c24b71721d2586140-1080x1350.png",
+     "name": "Medium Pavé Crystal Hoop Earrings",
+     "network": null,
+     "price": 250,
+     "slug": "victoria-beckham-medium-pave-crystal-hoop-earrings"
+    },
+    {
+     "brand": "Moncler",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/0ed5079f68217c843ac6b8a068e29604c77f824f-1080x1350.png",
+     "name": "Skirt Mixed Material",
+     "network": null,
+     "price": 730,
+     "slug": "moncler-skirt-mixed-material"
+    },
+    {
+     "brand": "Moncler",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/de7b618360ca3680387649407d995b204202c147-1080x1350.png",
+     "name": "Skirt",
+     "network": null,
+     "price": 490,
+     "slug": "moncler-skirt"
+    },
+    {
+     "brand": "Dr Bloom",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/a0f9115814c318ef7c94ff1e5168eeb9933810b6-1080x1350.png",
+     "name": "Falda Jaleo",
+     "network": null,
+     "price": 150,
+     "slug": "dr-bloom-falda-jaleo"
+    },
+    {
+     "brand": "Miu Miu",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/de7c1880da5a02e2a5404893a40bf498bfccc8c2-1080x1350.png",
+     "name": "Amaranth Skirt",
+     "network": null,
+     "price": 1.6,
+     "slug": "miu-miu-amaranth-skirt"
+    },
+    {
+     "brand": "Zara",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/b40befe1eca3335d211f36e255a53e286aef3a77-1080x1350.png",
+     "name": "Reversible Cropped Jacket",
+     "network": null,
+     "price": 79.95,
+     "slug": "zara-reversible-cropped-jacket"
+    },
+    {
+     "brand": "Victoria Beckham",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/b0410afc17aa7dedd3fcc3b1253b2bb2497d3ea3-1080x1350.png",
+     "name": "Pocket Detail Shirt In Blue",
+     "network": null,
+     "price": 473,
+     "slug": "victoria-beckham-pocket-detail-shirt-in-blue"
+    },
+    {
+     "brand": "Maximova Jewelry",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/ef5582b83e94cc459d6473d8a12756cd5468a713-1080x1350.png",
+     "name": "Hot Tear Earrings",
+     "network": null,
+     "price": 259,
+     "slug": "maximova-jewelry-hot-tear-earrings"
+    },
+    {
+     "brand": "Odare",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/63bf9b8003e4cd7b169d948bf08facc365ec9f79-1080x1350.png",
+     "name": "Leo Suede Boat Shoes",
+     "network": null,
+     "price": 232,
+     "slug": "odare-leo-suede-boat-shoes"
+    },
+    {
+     "brand": "Swedish Stockings",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/b28f9e8708d0934fe5dc1e310d83d7aa2b50fad1-1080x1350.png",
+     "name": "Edna Cotton Socks",
+     "network": null,
+     "price": 29,
+     "slug": "swedish-stockings-edna-cotton-socks"
+    },
+    {
+     "brand": "Zara",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/02ed0fa08152b40ce6ce7c3fda9fd58c0bea0952-1080x1350.png",
+     "name": "Beaded Midi Skirt",
+     "network": null,
+     "price": 89.95,
+     "slug": "zara-beaded-midi-skirt"
+    },
+    {
+     "brand": "Dries Van Noten",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/27708e805600f98e26a924c3ef83275e7ea38896-1080x1350.png",
+     "name": "Wrap Scarf-Skirt",
+     "network": null,
+     "price": 495,
+     "slug": "dries-van-noten-wrap-scarf-skirt"
+    },
+    {
+     "brand": "Odeeh",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/97a0a10a8241d6bad22e20d5e532f07740b7bc28-1080x1350.png",
+     "name": "Brush Strokes Twill Skirt",
+     "network": null,
+     "price": 599,
+     "slug": "odeeh-brush-strokes-twill-skirt"
+    },
+    {
+     "brand": "Prada",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/8844f1a2d1945f832949740a5fc2e79d875f9d39-1080x1350.png",
+     "name": "Silk Satin Midi Skirt",
+     "network": null,
+     "price": 1450,
+     "slug": "prada-silk-satin-midi-skirt"
+    },
+    {
+     "brand": "Boss",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/4cfdeeb47049901d70ab4466c53a11d4957ab743-1080x1350.png",
+     "name": "Blouse shirt BASHINAH",
+     "network": null,
+     "price": 159.95,
+     "slug": "boss-blouse-shirt-bashinah"
+    },
+    {
+     "brand": "Balenciaga",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/4625affae30861a1de0d4966f73a5bcb97f468a2-1080x1350.png",
+     "name": "Rodeo Medium",
+     "network": null,
+     "price": 3800,
+     "slug": "balenciaga-rodeo-medium"
+    },
+    {
+     "brand": "Poeve",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/2847c30ff4ed7594dd9aaff08818872dfdf06ad7-1080x1350.png",
+     "name": "Dima Boots",
+     "network": null,
+     "price": 390,
+     "slug": "poeve-dima-boots"
+    },
+    {
+     "brand": "Alhaja",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/c8628ad1465f61c9fb8ea6e5f1a62bfcf0c9f3e9-1080x1350.png",
+     "name": "Amalfi Ring",
+     "network": null,
+     "price": 111,
+     "slug": "alhaja-amalfi-ring"
+    }
+   ],
+   "publishDate": "2026-10-21T08:00:00.000Z",
+   "slug": "skirts",
+   "title": "Skirts"
+  },
+  {
+   "cover": "https://cdn.sanity.io/images/3fb6egil/production/35072b3ce8147f9380ae53d8a9913202149eb12d-1200x500.png",
+   "description": null,
+   "issueNumber": 15,
+   "products": [
+    {
+     "brand": "Bella Freud",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/11ebea7b6b1a9896181eed2d296951dfcd2be7be-1080x1350.png",
+     "name": "Love Is The Dog Jumper",
+     "network": null,
+     "price": 412.5,
+     "slug": "bella-freud-love-is-the-dog-jumper"
+    },
+    {
+     "brand": "Smallable",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/99b70409329505c464d8c0920a4e5503473d1964-1080x1350.png",
+     "name": "Agnes Striped Shirt ",
+     "network": null,
+     "price": 141,
+     "slug": "smallable-agnes-striped-shirt"
+    },
+    {
+     "brand": "Essentiel Antwerp",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/433b572f99643b2e5c7d9bf05f5ac5ea4b95113a-1080x1350.png",
+     "name": "Karmen Pants ",
+     "network": null,
+     "price": 197,
+     "slug": "essentiel-antwerp-karmen-pants"
+    },
+    {
+     "brand": "Phoebe Philo",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/b67f6f721ad162b60d3bab8f4560eb1fb98e0547-1080x1350.png",
+     "name": "Sterling silver cuff bracelet",
+     "network": null,
+     "price": 1200,
+     "slug": "phoebe-philo-sterling-silver-cuff-bracelet"
+    },
+    {
+     "brand": "Le Monde Béryl ",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/ce47656dfc225418ddb8bd5ebbcf143a01edeec6-1080x1350.png",
+     "name": "Babouche Kitten",
+     "network": null,
+     "price": 550,
+     "slug": "le-monde-beryl-babouche-kitten"
+    },
+    {
+     "brand": "Gucci",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/f2a0ae874f8106b04d4b28f04b3a1aaf91ee8670-1080x1350.png",
+     "name": "Bezel Watch ",
+     "network": null,
+     "price": 489,
+     "slug": "gucci-bezel-watch"
+    },
+    {
+     "brand": "Aleksandra Viktor",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/11ed7e187a2a3395bc4f30aac2262af97dd73495-1080x1350.png",
+     "name": "Suzanne Ikat Velvet Jacket",
+     "network": null,
+     "price": 990,
+     "slug": "aleksandra-viktor-suzanne-ikat-velvet-jacket"
+    },
+    {
+     "brand": "Sessùn",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/9e6db7bf8d18e5115a3bbfb5c8e1c30c7d515f55-1080x1350.png",
+     "name": "Bodam Pants Black",
+     "network": null,
+     "price": 197,
+     "slug": "sessun-bodam-pants-black"
+    },
+    {
+     "brand": "Dior",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/46a6535a82cde5d9d79dcd3acd288fa4a2465ffb-1080x1350.png",
+     "name": "Whisper Pumps",
+     "network": null,
+     "price": 1490,
+     "slug": "dior-whisper-pumps"
+    },
+    {
+     "brand": "Palas",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/9f1f70a9a28d94ba34716c53b52f9d3dd67fe99b-1080x1350.png",
+     "name": "\"Le Secret\" Long Necklace",
+     "network": null,
+     "price": 111,
+     "slug": "palas-le-secret-long-necklace"
+    },
+    {
+     "brand": "Selected",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/84ee09c417c7484c7418fd11f436cf7613b1ed9f-1080x1350.png",
+     "name": "Top",
+     "network": null,
+     "price": 89.99,
+     "slug": "selected-top"
+    },
+    {
+     "brand": "Essentiel Antwerp",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/fd762c642a39d017050080108990e1204e37cd68-1080x1350.png",
+     "name": "Heart Brooch",
+     "network": null,
+     "price": 86,
+     "slug": "essentiel-antwerp-heart-brooch"
+    },
+    {
+     "brand": "La Double J",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/abfe98faf9fb4357272459935995f4596d63dadf-1080x1350.png",
+     "name": "Spells Ring",
+     "network": null,
+     "price": 290,
+     "slug": "la-double-j-spells-ring"
+    },
+    {
+     "brand": "Style Republic",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/3d77aacfce9d0283283d10fc5e1797e1255db1f0-1080x1350.png",
+     "name": "round neck sweater",
+     "network": null,
+     "price": 89,
+     "slug": "style-republic-round-neck-sweater"
+    },
+    {
+     "brand": "Róhe",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/75dffc15c95e531081b688f87480573fb45d4261-1080x1350.png",
+     "name": "Boxer-style midi skirt",
+     "network": null,
+     "price": 476,
+     "slug": "rohe-boxer-style-midi-skirt"
+    },
+    {
+     "brand": "Arakii",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/7ae7ce77592fa641fc86bfe9c4843446319f7723-1080x1350.png",
+     "name": "Wide Collar Mini Dress",
+     "network": null,
+     "price": 450,
+     "slug": "arakii-wide-collar-mini-dress"
+    },
+    {
+     "brand": "Soeur",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/0683b72d5beecd05437d1623b7cc9eebf8abc46d-1080x1350.png",
+     "name": "Walk cotton socks",
+     "network": null,
+     "price": 35,
+     "slug": "soeur-walk-cotton-socks"
+    },
+    {
+     "brand": "Victoria Beckham",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/26df60fc60ffc7803efd57f8c6013354c4faad0a-1080x1350.png",
+     "name": "Kizette Clutch Black Supple Shine Leather",
+     "network": null,
+     "price": 1250,
+     "slug": "victoria-beckham-kizette-clutch-black-supple-shine-leather"
+    },
+    {
+     "brand": "Maje",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/53620a0a770a01707be86705546823f7dfbf69fc-1080x1350.png",
+     "name": "Slingpumps",
+     "network": null,
+     "price": 325,
+     "slug": "maje-slingpumps"
+    },
+    {
+     "brand": "Chanel",
+     "cat": "Fashion",
+     "currency": "EUR",
+     "image": "https://cdn.sanity.io/images/3fb6egil/production/e9c33e4a133753fdda143847f5e07c375a3f99f4-1080x1350.png",
+     "name": "Brooche Gold",
+     "network": null,
+     "price": 460,
+     "slug": "chanel-brooche-gold"
+    }
+   ],
+   "publishDate": "2026-10-17T08:00:00.000Z",
+   "slug": "art-basel-paris-looks",
+   "title": "Art Basel Paris Looks"
+  }
+ ],
+ "picks": [
+  {
+   "brand": "&k amsterdam",
+   "cat": "Interior",
+   "currency": "EUR",
+   "image": "https://cdn.sanity.io/images/3fb6egil/production/98308300a4dba6f740e1963387dcda7e55cb164f-1080x1350.png",
+   "name": "Champagne Glass Set",
+   "network": null,
+   "price": 29.99,
+   "slug": "and-k-amsterdam-champagne-glass-set"
+  },
+  {
+   "brand": "Prada",
+   "cat": "Fashion",
+   "currency": "EUR",
+   "image": "https://cdn.sanity.io/images/3fb6egil/production/8844f1a2d1945f832949740a5fc2e79d875f9d39-1080x1350.png",
+   "name": "Silk Satin Midi Skirt",
+   "network": null,
+   "price": 1450,
+   "slug": "prada-silk-satin-midi-skirt"
+  },
+  {
+   "brand": "Jotex",
+   "cat": "Interior",
+   "currency": "EUR",
+   "image": "https://cdn.sanity.io/images/3fb6egil/production/26760680f2655a1847835bc933ae58b85c4fea49-1080x1350.png",
+   "name": "Pear Vase",
+   "network": null,
+   "price": 109.99,
+   "slug": "jotex-pear-vase"
+  }
+ ],
+ "articles": [
+  {
+   "cat": "Culture",
+   "dek": "Some places are more than a destination. They're a reason to go.",
+   "img": "https://cdn.sanity.io/images/3fb6egil/production/4807595a25bff45a7c5ac98380558d2230f46774-2486x1080.png",
+   "sections": [
+    {
+     "body": [
+      "Oct 23-25, Grand Palais",
+      "Not the whole fair. Just the right rooms",
+      "Open with Miu Miu\n\nMiu Miu hands the Palais d'Iéna to filmmaker Alice Diop for Geste de Consolation (Oct 21-25). It's the week's cleanest crossover of fashion and art\n\nThen Cézanne at the Grand Palais, in conversation with Picasso, Joan Mitchell and Peter Doig.",
+      "Myths, legends, Sylvie\nOh La La! (Oct 23-24) is the fair's rehang of its most provocative works. This year it's staged by Philippine Leroy-Beaulieu, with a theme of Myths and Legends.",
+      "Mind the Marais\nJordan Casteel makes her Paris debut at Thaddaeus Ropac, timed to the fair. Across town, Gagosian gives Lee Krasner's 1960s works the room they deserve (Oct 19 to Dec 18).\n\n",
+      "The new guard\n\n- Cudelice Brazelton IV: iron, rust, faux leather and denim, shaped into stories of labor and family.\n- Solomon Garçon: the art fair as reality TV, with everyone playing their part.\n- Clémentine Adou: the sidewalks of Paris, turned into material.\n- Vera Molnár, Derek Jarman, Tarsila do Amaral: the rediscoveries in Premise.\n- Robert Indiana and Ellsworth Kelly: Olney Gleason's booth, pulled from Indiana's own collection.",
+      "Paris is where the American collector now lands first. The rest of us just follow the clothes."
+     ],
+     "heading": "Art Basel Paris",
+     "kicker": "The New Basel"
+    },
+    {
+     "body": [
+      "October 21 – 25, Palais d’léna",
+      "Film, performance and art, brought together by filmmaker \nAlice Diop. A moving tribute to the women who change \nhow we see the world. "
+     ],
+     "heading": "Miu Miu - GESTE de CONSOLATION",
+     "kicker": "Art Basel Paris"
+    },
+    {
+     "body": [
+      "Until January 18, 2027",
+      "Two centuries of photography, 700 works and more \nways of looking than you can take in at once. Go for \nthe images, stay for the unexpected connections. "
+     ],
+     "heading": "Remember Me",
+     "kicker": "Art Basel Paris"
+    },
+    {
+     "body": [
+      "Outdoor projections October 18 - 22\nMuseum exhibitions until February 21, 2027",
+      "A fresh take on Orsay – historic texts, monumental projections and contemporary art in unexpected dialogue."
+     ],
+     "heading": "Jenny Holzer - J'ai Vu",
+     "kicker": "Art Basel Paris"
+    },
+    {
+     "body": [
+      "An entire island as your hotel? We're listening.",
+      "Seven minutes by boat from Bandol lies Île de Bendor, the tiny Mediterranean island once created by pastis legend Paul Ricard as his own world of art, parties and Provençal life.",
+      "After five years behind closed doors, it has been completely reimagined by Zannier Hotels, with 93 rooms spread across three very different worlds. Our pick is Delos, bringing back just the right amount of 1960s Riviera glamour.",
+      "A little less Saint-Tropez. A little more Slim Aarons. And very high on our list."
+     ],
+     "heading": "Zannier Île de Bendor, Côte d'Azur",
+     "kicker": "The Hotel"
+    },
+    {
+     "body": [
+      "A very good reason to suddenly put Santander on your list.",
+      "On the 8th of September, one of Spain's most intriguing new cultural addresses opens its doors.",
+      "David Chipperfield has transformed Banco Santander's historic waterfront headquarters into Faro Santander, part museum, part cultural laboratory, with the Cantabrian Sea almost stealing the show through the windows.",
+      "And the opening programme is rather extraordinary: Goya, Velázquez and Rubens alongside Frida Kahlo, Diego Rivera and a beautifully focused Leonora Carrington exhibition.",
+      "Architecture, art, sea. And a city that suddenly feels worth watching."
+     ],
+     "heading": "Faro Santander, Santander",
+     "kicker": "The New Address"
+    }
+   ],
+   "slug": "three-rooms-worth-the-trip",
+   "title": "Three Rooms Worth the Trip"
+  },
+  {
+   "cat": "Culture",
+   "dek": "A little window into our world. What we're reading, listening to, discovering and talking about right now.",
+   "img": "https://cdn.sanity.io/images/3fb6egil/production/644d16c1fa181169bb2d419353af6871f7a19068-1091x648.png",
+   "sections": [
+    {
+     "body": [
+      "The $6 million banana was never really about the banana.",
+      "Ahead of his major new show in Germany, art's great provocateur talks about the gold toilet, bringing Hitler to Berlin, and why, beneath all the jokes, his work has always been deadly serious."
+     ],
+     "heading": "Maurizio Cattelan",
+     "kicker": "The Interview"
+    },
+    {
+     "body": [
+      "80 years old. Still curious. Still working. Still unmistakably Paul Smith.",
+      "A wonderfully candid conversation about creativity, love, clothes, getting older, and the rather brilliant idea that nobody cares how good you used to be."
+     ],
+     "heading": "Paul Smith at 80",
+     "kicker": "The Conversation"
+    },
+    {
+     "body": [
+      "Some voices simply never leave you.",
+      "At 84, Art Garfunkel looks back on a remarkable life in music. From recording Bridge Over Troubled Water an astonishing 300 times in search of perfection to finding his way back to Paul Simon. A beautiful conversation about music, friendship, ageing and still wanting to get things just right."
+     ],
+     "heading": "Art Garfunkel",
+     "kicker": "The Music"
+    }
+   ],
+   "slug": "whats-in-our-ears",
+   "title": "What's Not to Miss?"
+  }
+ ]
+}

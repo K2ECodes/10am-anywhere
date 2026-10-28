@@ -436,3 +436,18 @@ export async function fetchHomepage(): Promise<HomepageData | null> {
     },
   };
 }
+
+// Everything public, for the sitemap and llms.txt (AEO). Gated pages are listed
+// too: crawlers still get their title, summary and structured data.
+export async function fetchSiteIndex(): Promise<{
+  edits: { slug: string; title: string; description?: string; updated: string }[];
+  articles: { slug: string; title: string; dek?: string; category?: string; updated: string }[];
+  guides: { slug: string; city: string; country?: string; updated: string }[];
+} | null> {
+  if (!sanityClient) return null;
+  return sanityClient.fetch(`{
+    "edits": *[_type == "edit" && status == "published" && defined(slug.current)] | order(publishDate desc){ "slug": slug.current, title, description, "updated": _updatedAt },
+    "articles": *[_type == "article" && defined(slug.current)] | order(_createdAt desc){ "slug": slug.current, title, dek, "category": category->name, "updated": _updatedAt },
+    "guides": *[_type == "cityGuide" && defined(slug.current)] | order(city asc){ "slug": slug.current, city, country, "updated": _updatedAt }
+  }`);
+}
