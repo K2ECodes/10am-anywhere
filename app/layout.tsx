@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import "./globals.css";
 import "./editorial.css";
 import Nav from "@/components/Nav";
@@ -37,6 +38,14 @@ export const metadata: Metadata = {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // The private 10am Engine renders without the public nav, footer, popups and tracking.
+  if (headers().get("x-engine") === "1") {
+    return (
+      <html lang="en">
+        <body className="engine-body">{children}</body>
+      </html>
+    );
+  }
   // Latest edits for the "What We Shop" menu column (kept current automatically).
   const latestEdits = await getEditNavLinks(6);
   return (

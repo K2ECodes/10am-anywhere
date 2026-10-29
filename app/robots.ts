@@ -3,7 +3,7 @@ import { SITE_URL } from "@/lib/seo";
 
 // Search engines and AI answer engines are explicitly welcome (AEO). Only the
 // affiliate redirect, APIs and personal pages are kept out of indexes.
-const PRIVATE = ["/go/", "/api/", "/account", "/wishlist", "/auth/"];
+const PRIVATE = ["/go/", "/api/", "/account", "/wishlist", "/auth/", "/engine"];
 const AI_BOTS = [
   "GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-SearchBot", "Claude-User",
   "PerplexityBot", "Perplexity-User", "Google-Extended", "Applebot-Extended", "Bingbot", "CCBot",
