@@ -43,18 +43,18 @@ export default async function GrowthPage() {
 
       <section className="eng-section">
         <h2 className="eng-h2">Already built: the AI UGC reel</h2>
-        <p className="eng-h2-sub">Made from the {source?.edit?.title ?? "latest"} edit. Real products, an AI creator, a voiceover in your tone. One honest note: the AI gave the tablecloth a pattern the real linen doesn&apos;t have. That is exactly why every reel goes through your approval first.</p>
+        <p className="eng-h2-sub">A creator-style fashion clip made entirely with AI: the model, the styling, the light and the movement. In Phase Three, clips like this are made from the real pieces in each edit and go through your approval before anything is posted.</p>
         <div className="eng-card eng-reel">
           {show.reel ? (
-            <video src={show.reel} poster={show.poster ?? undefined} controls playsInline preload="metadata" />
+            <video src={show.reel} poster={show.poster ?? undefined} autoPlay muted loop playsInline controls preload="auto" />
           ) : <div className="eng-empty">Reel not uploaded</div>}
           <div>
             <div className="eng-meta">How a reel is made</div>
             <ul className="eng-checks">
               <li><span>Pick the pieces<small>The engine chooses two or three hero products from the edit</small></span><span className="eng-pill">Automatic</span></li>
-              <li><span>The creator still<small>An AI presenter photographed with the real product images</small></span><span className="eng-pill info">You approve</span></li>
-              <li><span>The script and voice<small>Written in the 10am voice, read by an AI voice</small></span><span className="eng-pill info">You approve</span></li>
-              <li><span>The cut<small>Vertical 9:16 with captions, sized for Reels, TikTok and Shorts</small></span><span className="eng-pill info">You approve</span></li>
+              <li><span>The look<small>An AI model styled in the real pieces, in a 10am setting</small></span><span className="eng-pill info">You approve</span></li>
+              <li><span>The motion<small>Movement, light and camera, with an optional voiceover in the 10am voice</small></span><span className="eng-pill info">You approve</span></li>
+              <li><span>The cut<small>Vertical 9:16 with captions and music, sized for Reels, TikTok and Shorts</small></span><span className="eng-pill info">You approve</span></li>
             </ul>
           </div>
         </div>
