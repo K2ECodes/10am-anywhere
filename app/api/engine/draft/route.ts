@@ -37,7 +37,7 @@ export async function POST(req: Request) {
   ].join("\n\n");
 
   const brief: Record<Format, string> = {
-    tiktok: `Adapt the post into a 20 to 30 second TikTok the team films themselves on a phone (hands, table, products; no AI video). 4 to 6 shots. The caption starts with "${DISCLOSURE}" and ends with: Comment ${source.keyword ?? "the keyword"} and we'll send you the link. At most 5 hashtags.`,
+    tiktok: `Adapt the post into a faceless TikTok photo post (TikTok's photo carousel mode) that reuses the ${source.slides.length || 1} images from the Instagram carousel, shown above in order as image 1, 2, 3 and so on. Nobody films or appears on camera. Choose and order 5 to 8 of the images for TikTok, opening on the strongest one, and write short on-screen text for each (under 70 characters, TikTok style, more direct than the Instagram caption). The first slide's text is the hook. The caption starts with "${DISCLOSURE}" and ends with: Comment ${source.keyword ?? "the keyword"} and we'll send you the link. At most 5 hashtags. Suggest a sound that suits the mood.`,
     threads: `Adapt the post into a Threads thread of 3 or 4 posts, each under 400 characters, that reads like Silke talking. The last post includes "${DISCLOSURE}" and the link ${editUrl}.`,
     email: `Adapt the post into a section for the Saturday email newsletter. Pick 4 products across the price range from the edit. Include "disclosure": "${DISCLOSURE}" and "slug" on each pick.`,
   };
@@ -59,9 +59,18 @@ export async function POST(req: Request) {
     },
     body: JSON.stringify({
       model: process.env.ENGINE_MODEL || "claude-sonnet-5-5",
-      max_tokens: 2000,
+      max_tokens: 8000,
       system,
-      messages: [{ role: "user", content: user }],
+      // The assistant sees the carousel itself, so slide text matches each image.
+      messages: [{
+        role: "user",
+        content: [
+          ...(format === "tiktok"
+            ? source.slides.slice(0, 10).map((url) => ({ type: "image", source: { type: "url", url: `${url.replace("auto=format", "fm=jpg")}&w=800` } }))
+            : []),
+          { type: "text", text: user },
+        ],
+      }],
     }),
   });
   if (!r.ok) return NextResponse.json({ error: "drafting_failed", detail: (await r.text()).slice(0, 300) }, { status: 502 });
@@ -71,7 +80,7 @@ export async function POST(req: Request) {
   try {
     content = JSON.parse(text.slice(text.indexOf("{"), text.lastIndexOf("}") + 1));
   } catch {
-    return NextResponse.json({ error: "drafting_failed", detail: "unreadable draft" }, { status: 502 });
+    return NextResponse.json({ error: "drafting_failed", detail: "unreadable draft", stop: out.stop_reason }, { status: 502 });
   }
   content = houseStyle(content);
   if (format === "email" && Array.isArray(content.picks)) {

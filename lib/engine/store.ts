@@ -25,6 +25,7 @@ export type Source = {
   postedAt: string;
   keyword: string | null;
   image: string | null;
+  slides: string[]; // the post's carousel images, in order
   syncedAt: string;
   edit: null | {
     slug: string;
@@ -66,6 +67,8 @@ export async function getSource(): Promise<Source | null> {
     postedAt: s.postedAt,
     keyword: s.keyword ?? null,
     image: s.image ? urlForImage(s.image) : null,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    slides: (s.slides ?? []).map((i: any) => urlForImage(i)).filter(Boolean) as string[],
     syncedAt: s.syncedAt,
     edit: s.edit
       ? {

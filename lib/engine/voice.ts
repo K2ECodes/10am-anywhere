@@ -19,7 +19,7 @@ export const VOICE_GUIDE = {
 export const FORMATS = {
   tiktok: {
     label: "TikTok",
-    blurb: "A 20 to 30 second film script the team shoots on a phone, with on-screen text, caption and keyword.",
+    blurb: "A faceless photo post made from your Instagram carousel: new on-screen text per slide, caption, sound and keyword.",
   },
   threads: {
     label: "Threads",
@@ -35,7 +35,7 @@ export type FormatKey = keyof typeof FORMATS;
 
 // JSON shapes the drafting assistant must return, one per format.
 export const SHAPES: Record<FormatKey, string> = {
-  tiktok: `{"hook": "on-screen text for the first two seconds", "shots": [{"shot": "what the camera sees", "voiceover": "what is said", "onScreen": "text overlay"}], "caption": "the post caption", "hashtags": ["#10am"], "sound": "music or sound suggestion"}`,
+  tiktok: `{"slides": [{"image": 1, "onScreen": "short text overlay for this slide"}], "caption": "the post caption", "hashtags": ["#10am"], "sound": "music or sound suggestion"}`,
   threads: `{"posts": ["post 1", "post 2", "post 3"]}`,
   email: `{"subject": "under 60 characters", "preheader": "under 90 characters", "headline": "section headline", "intro": "two or three sentences", "picks": [{"product": "Brand, Product", "line": "one sentence on why", "price": "€29.99"}], "cta": "button label", "signoff": "one line"}`,
 };
@@ -71,6 +71,8 @@ export function runChecks(format: FormatKey, content: Record<string, unknown>, k
   if (format === "tiktok") {
     const tags = (content.hashtags as string[] | undefined) ?? [];
     checks.push({ id: "tags", label: "Five hashtags or fewer", ok: tags.length <= 5, level: "warn" });
+    const slides = (content.slides as { onScreen?: string }[] | undefined) ?? [];
+    checks.push({ id: "slides", label: "Slide text short enough to read", ok: slides.length > 0 && slides.every((x) => (x.onScreen ?? "").length <= 70), level: "warn" });
   }
   if (format === "email") {
     const subject = String(content.subject ?? "");

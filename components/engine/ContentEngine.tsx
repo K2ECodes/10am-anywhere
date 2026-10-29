@@ -23,14 +23,14 @@ function asText(d: Draft): string {
   const c = d.content as any;
   if (d.format === "threads") return (c.posts ?? []).join("\n\n---\n\n");
   if (d.format === "tiktok") {
-    const shots = (c.shots ?? []).map((s: any, i: number) => `${i + 1}. ${s.shot}\n   VO: ${s.voiceover}\n   On screen: ${s.onScreen}`).join("\n");
-    return `HOOK: ${c.hook}\n\nSHOTS\n${shots}\n\nSOUND: ${c.sound}\n\nCAPTION\n${c.caption}\n\n${(c.hashtags ?? []).join(" ")}`;
+    const slides = (c.slides ?? []).map((x: any, i: number) => `Slide ${i + 1} (Instagram image ${x.image}): ${x.onScreen}`).join("\n");
+    return `TIKTOK PHOTO POST\n\n${slides}\n\nSOUND: ${c.sound}\n\nCAPTION\n${c.caption}\n\n${(c.hashtags ?? []).join(" ")}`;
   }
   const picks = (c.picks ?? []).map((p: any) => `${p.product} (${p.price})\n${p.line}\n${p.url ?? ""}`).join("\n\n");
   return `Subject: ${c.subject}\nPreview: ${c.preheader}\n\n${c.headline}\n\n${c.intro}\n\n${picks}\n\n[${c.cta}] ${c.link ?? ""}\n\n${c.signoff}\n\n${c.disclosure ?? ""}`;
 }
 
-function DraftBody({ d }: { d: Draft }) {
+function DraftBody({ d, slides }: { d: Draft; slides: string[] }) {
   const c = d.content as any;
   if (d.format === "threads") {
     return (
@@ -43,15 +43,19 @@ function DraftBody({ d }: { d: Draft }) {
   if (d.format === "tiktok") {
     return (
       <>
-        <h4>Hook, first two seconds</h4>
-        <p style={{ fontStyle: "italic", fontSize: 18 }}>{c.hook}</p>
-        <h4>Shot list</h4>
-        {(c.shots ?? []).map((s: any, i: number) => (
-          <div key={i} className="eng-shot">
-            <b>{i + 1}</b>
-            <span>{s.shot}<em>Voice: {s.voiceover}</em><em>On screen: {s.onScreen}</em></span>
-          </div>
-        ))}
+        <h4>Photo post · {(c.slides ?? []).length} slides from your carousel</h4>
+        <div className="eng-tt-slides">
+          {(c.slides ?? []).map((x: any, i: number) => (
+            <figure key={i} className="eng-tt-slide">
+              {slides[x.image - 1] ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={slides[x.image - 1]} alt={`Instagram image ${x.image}`} />
+              ) : null}
+              <figcaption>{x.onScreen}</figcaption>
+              <span>{i + 1}</span>
+            </figure>
+          ))}
+        </div>
         <h4>Caption</h4>
         <p>{c.caption}</p>
         <p style={{ color: "var(--ink-soft)" }}>{(c.hashtags ?? []).join(" ")}</p>
@@ -147,6 +151,18 @@ export default function ContentEngine({ source, initialDrafts }: { source: Sourc
     setBusy(null);
     setTab("review");
     setToast(`New ${FORMATS[format as keyof typeof FORMATS].label} draft ready to review.`);
+  }
+
+  // The carousel images in the TikTok order, saved as tiktok-1.jpg, tiktok-2.jpg…
+  function downloadSlides(d: Draft) {
+    const order = ((d.content.slides as { image: number }[] | undefined) ?? []).map((x) => source?.slides[x.image - 1]).filter(Boolean) as string[];
+    order.forEach((url, i) => {
+      const a = document.createElement("a");
+      a.href = `${url.replace("auto=format", "fm=jpg")}&dl=tiktok-${i + 1}.jpg`;
+      document.body.appendChild(a);
+      setTimeout(() => { a.click(); a.remove(); }, i * 400);
+    });
+    setToast(`Downloading ${order.length} slides in TikTok order.`);
   }
 
   async function copy(d: Draft) {
@@ -246,7 +262,7 @@ export default function ContentEngine({ source, initialDrafts }: { source: Sourc
                     <span className="eng-channel-name">{FORMATS[d.format].label}</span>
                     <span className="eng-meta" style={{ margin: 0 }}>Version {d.version} · {fmtDate(d.createdAt)}</span>
                   </div>
-                  <div className="eng-draft-body"><DraftBody d={d} /></div>
+                  <div className="eng-draft-body"><DraftBody d={d} slides={source?.slides ?? []} /></div>
                   <div className="eng-guard" title="Checked automatically against the 10am voice guide">
                     {checks.map((c) => (
                       <span key={c.id} className={c.ok ? "" : c.level === "fail" ? "no" : "maybe"}>{c.ok ? "✓" : "!"} {c.label}</span>
@@ -286,6 +302,9 @@ export default function ContentEngine({ source, initialDrafts }: { source: Sourc
                     {d.status === "approved" ? (
                       <div className="eng-btns">
                         <button className="eng-btn" onClick={() => copy(d)}>Copy for {FORMATS[d.format].label}</button>
+                        {d.format === "tiktok" ? (
+                          <button className="eng-btn ghost" onClick={() => downloadSlides(d)}>Download slides</button>
+                        ) : null}
                         <button className="eng-btn ghost" disabled={isBusy} onClick={() => move(d, "published")}>Mark as posted</button>
                         <button className="eng-btn quiet" disabled={isBusy} onClick={() => move(d, "review")}>Undo approval</button>
                       </div>

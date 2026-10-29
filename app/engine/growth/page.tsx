@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 const WEEK: { day: string; slots: { c: string; t: string }[] }[] = [
   { day: "Mon", slots: [{ c: "ig", t: "Reel: AI UGC, the table set in 20s" }, { c: "tt", t: "Same reel, TikTok Shop tags" }, { c: "pin", t: "6 product pins" }] },
   { day: "Tue", slots: [{ c: "ig", t: "Carousel: 8 pieces under €100" }, { c: "th", t: "Thread: hosting tips" }, { c: "pin", t: "6 product pins" }] },
-  { day: "Wed", slots: [{ c: "tt", t: "Founder film from the Content Engine" }, { c: "yt", t: "Short: same film" }, { c: "ig", t: "Stories: poll + links" }] },
+  { day: "Wed", slots: [{ c: "tt", t: "Photo post from the Content Engine" }, { c: "yt", t: "Short: carousel as video" }, { c: "ig", t: "Stories: poll + links" }] },
   { day: "Thu", slots: [{ c: "ig", t: "Reel: AI UGC, the splurge vs the save" }, { c: "tt", t: "Same reel, TikTok Shop tags" }, { c: "pin", t: "6 product pins" }] },
   { day: "Fri", slots: [{ c: "ig", t: "Carousel: German edition" }, { c: "th", t: "Thread: weekend plans" }, { c: "tt", t: "Trend remix from the radar" }] },
   { day: "Sat", slots: [{ c: "em", t: "Newsletter from the Content Engine" }, { c: "ig", t: "Stories: newsletter teaser" }] },

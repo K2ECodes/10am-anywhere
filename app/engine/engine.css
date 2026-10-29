@@ -105,6 +105,15 @@
 .eng-shot { display: grid; grid-template-columns: 22px 1fr; gap: 8px; padding: 8px 0; border-top: 1px dashed var(--line); }
 .eng-shot b { font-weight: 400; color: var(--ink-soft); }
 .eng-shot em { display: block; font-size: 13px; color: var(--ink-soft); }
+.eng-tt-slides { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.eng-tt-slide { position: relative; margin: 0; aspect-ratio: 9/16; background: #111; overflow: hidden; }
+.eng-tt-slide img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.eng-tt-slide figcaption {
+  position: absolute; left: 6px; right: 6px; top: 38%; text-align: center; color: #fff;
+  font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif; font-size: 11px; font-weight: 600; line-height: 1.25;
+  text-shadow: 0 1px 4px rgba(0,0,0,.8);
+}
+.eng-tt-slide span { position: absolute; top: 4px; left: 6px; color: #fff; font-size: 10px; opacity: .8; }
 .eng-thread-post { overflow-wrap: anywhere; padding: 10px 12px; background: var(--soft); margin-bottom: 8px; border-radius: 10px; white-space: pre-line; }
 .eng-email { border: 1px solid var(--line); padding: 16px; background: #FDFCFA; }
 .eng-email-subject { font-size: 17px; }

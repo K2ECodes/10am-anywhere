@@ -5,7 +5,7 @@
 //
 // Reads the public profile with a headless browser (no Instagram login), takes
 // the newest of the first few grid posts by publish date (skips a pinned post),
-// stores its caption, date, link and cover image, and matches it to the website
+// stores its caption, date, link, cover and every carousel image, and matches it to the website
 // edit it promotes. Once 10am connects the Instagram Graph API (IG_ACCESS_TOKEN +
 // IG_USER_ID on Vercel) the engine reads the feed directly and this becomes the
 // fallback.
@@ -40,6 +40,24 @@ const API = `https://${PID}.api.sanity.io/v2023-10-01`;
 const H = { Authorization: `Bearer ${TOKEN}` };
 const groq = async (q) => (await (await fetch(`${API}/data/query/${DS}?query=${encodeURIComponent(q)}`, { headers: H })).json()).result;
 
+// Every image in a carousel post, in order, from the page's embedded data
+// (each slide's own image, or a video slide's cover frame).
+function carouselImages(html) {
+  const i = html.indexOf('"carousel_media":[');
+  if (i < 0) return [];
+  const start = i + '"carousel_media":'.length;
+  let depth = 0, end = start;
+  for (let k = start; k < html.length; k++) {
+    if (html[k] === "[") depth++;
+    else if (html[k] === "]" && --depth === 0) { end = k + 1; break; }
+  }
+  try {
+    return JSON.parse(html.slice(start, end))
+      .map((m) => m.image_versions2?.candidates?.[0]?.url || m.display_uri)
+      .filter(Boolean);
+  } catch { return []; }
+}
+
 const { chromium } = loadPlaywright();
 const browser = await chromium.launch();
 const page = await browser.newPage({ userAgent: UA, viewport: { width: 1280, height: 1600 } });
@@ -57,7 +75,7 @@ for (const code of codes) {
   const takenAt = Number((html.match(/"taken_at":(\d{10})/) || [])[1] || 0);
   // og:title is `10am on Instagram: "<caption>"`.
   const caption = ((meta["og:title"] || "").match(/Instagram:\s*"([\s\S]*)"\s*$/) || [])[1] || "";
-  posts.push({ code, takenAt, caption, image: meta["og:image"], url: `https://www.instagram.com/p/${code}/` });
+  posts.push({ code, takenAt, caption, image: meta["og:image"], slides: carouselImages(html), url: `https://www.instagram.com/p/${code}/` });
 }
 await browser.close();
 
@@ -71,14 +89,21 @@ const cap = norm(latest.caption);
 const edit = edits.find((e) => cap.includes(norm(e.title))) || null;
 const keyword = (latest.caption.match(/comment\s+[‘'"“]?([A-Za-z]+)[’'"”]?/i) || [])[1] || null;
 
-let imageField;
-if (latest.image) {
-  const img = await fetch(latest.image, { headers: { "User-Agent": UA } });
-  const up = await fetch(`${API}/assets/images/${DS}?filename=ig-${latest.code}.jpg`, {
+// Instagram image links expire, so every image is copied into Sanity.
+async function keep(url, name) {
+  const img = await fetch(url, { headers: { "User-Agent": UA } });
+  if (!img.ok) return null;
+  const up = await fetch(`${API}/assets/images/${DS}?filename=${name}.jpg`, {
     method: "POST", headers: { ...H, "Content-Type": "image/jpeg" }, body: Buffer.from(await img.arrayBuffer()),
   });
   const j = await up.json();
-  if (j.document) imageField = { _type: "image", asset: { _type: "reference", _ref: j.document._id } };
+  return j.document ? { _type: "image", asset: { _type: "reference", _ref: j.document._id } } : null;
+}
+const imageField = latest.image ? await keep(latest.image, `ig-${latest.code}`) : null;
+const slides = [];
+for (const [n, url] of (latest.slides.length ? latest.slides : latest.image ? [latest.image] : []).entries()) {
+  const image = await keep(url, `ig-${latest.code}-${n + 1}`);
+  if (image) slides.push({ _key: `s${n + 1}`, _type: "image", asset: image.asset });
 }
 
 const doc = {
@@ -94,10 +119,11 @@ const doc = {
   editTitle: edit?.title ?? null,
   syncedAt: new Date().toISOString(),
   ...(imageField ? { image: imageField } : {}),
+  slides,
 };
 const r = await fetch(`${API}/data/mutate/${DS}`, {
   method: "POST", headers: { ...H, "Content-Type": "application/json" },
   body: JSON.stringify({ mutations: [{ createOrReplace: doc }] }),
 });
 if (!r.ok) { console.error("Sanity write failed", r.status, await r.text()); process.exit(1); }
-console.log(`Synced ${latest.url} (${doc.postedAt.slice(0, 10)}) -> edit: ${doc.editSlug ?? "none"}, keyword: ${doc.keyword ?? "none"}`);
+console.log(`Synced ${latest.url} (${doc.postedAt.slice(0, 10)}, ${slides.length} images) -> edit: ${doc.editSlug ?? "none"}, keyword: ${doc.keyword ?? "none"}`);
