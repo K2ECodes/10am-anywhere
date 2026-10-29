@@ -3,19 +3,22 @@ import type { EditorialRef } from "@/lib/types";
 
 // Editorials that belong to a section (e.g. "10am in Lisbon" under Travel).
 // `highlight` gives the band a distinct background + headline so it doesn't get
-// overlooked (used on Culture, where it sits below the products grid).
+// overlooked. `feature` makes it the lead of the page: two large cards a row
+// (used on Culture, where the columns sit above the books and podcasts).
 export default function EditorialCards({
   items,
   label = "Editorials",
   highlight = false,
+  feature = false,
 }: {
   items: EditorialRef[];
   label?: string;
   highlight?: boolean;
+  feature?: boolean;
 }) {
   if (!items.length) return null;
   return (
-    <section className={`ed-band${highlight ? " ed-band-highlight" : ""}`} id={highlight ? "whats-on" : undefined}>
+    <section className={`ed-band${highlight ? " ed-band-highlight" : ""}${feature ? " ed-band-feature" : ""}`} id={highlight ? "whats-on" : undefined}>
       <div className="ed-head">
         {highlight ? (
           <h2 className="ed-headline">{label}</h2>

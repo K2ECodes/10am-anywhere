@@ -37,6 +37,14 @@ const CATEGORY_INTRO: Record<string, { headline: string; text: string }> = {
   },
 };
 
+// Culture's two recurring columns, in the order they lead the page. Each owns a
+// kind of story so the two stay distinct: Three Rooms is places to go, What's
+// Not to Miss is things to read, hear and talk about.
+const CULTURE_COLUMNS: { slug: string; kicker: string }[] = [
+  { slug: "three-rooms-worth-the-trip", kicker: "Locations · Exhibitions, festivals, destinations, hotels" },
+  { slug: "whats-in-our-ears", kicker: "Articles · Interviews, podcasts, news, books" },
+];
+
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const cat = getCategoryBySlug(params.slug);
   return { title: cat ? `${cat.name} · 10am` : "10am" };
@@ -56,6 +64,18 @@ export default async function CategoryPage({ params }: { params: { slug: string 
   const gallery = getCategoryGallery(params.slug);
 
   const intro = CATEGORY_INTRO[params.slug];
+  const isCulture = params.slug === "culture";
+
+  // On Culture the columns lead, larger, and the books and podcasts follow.
+  const columns = isCulture
+    ? [
+        ...CULTURE_COLUMNS.flatMap((c) => {
+          const e = editorials.find((x) => x.slug === c.slug);
+          return e ? [{ ...e, kicker: c.kicker }] : [];
+        }),
+        ...editorials.filter((x) => !CULTURE_COLUMNS.some((c) => c.slug === x.slug)),
+      ]
+    : editorials;
 
   return (
     <div className={SHOP_BG.has(params.slug) ? "shop-page" : undefined}>
@@ -68,15 +88,22 @@ export default async function CategoryPage({ params }: { params: { slug: string 
         </header>
       ) : null}
 
+      {isCulture ? <EditorialCards items={columns} label="What's on now" highlight feature /> : null}
+
       {products.length > 0 ? (
-        <ProductSort products={products} editorial={EDITORIAL.has(params.slug)} />
+        isCulture ? (
+          <section className="cat-compact">
+            <div className="ed-head">
+              <div className="page-kicker">Books &amp; podcasts</div>
+            </div>
+            <ProductSort products={products} />
+          </section>
+        ) : (
+          <ProductSort products={products} editorial={EDITORIAL.has(params.slug)} />
+        )
       ) : null}
 
-      <EditorialCards
-        items={editorials}
-        label={params.slug === "culture" ? "What's on now" : "Editorials"}
-        highlight={params.slug === "culture"}
-      />
+      {isCulture ? null : <EditorialCards items={editorials} label="Editorials" />}
 
       {gallery.length > 0 ? <PhotoGrid photos={gallery} label={`${category.name}, in pictures`} /> : null}
     </div>

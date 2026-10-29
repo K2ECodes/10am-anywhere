@@ -1572,6 +1572,29 @@ a.gp-name:hover { text-decoration: underline; text-underline-offset: 3px; }
   font-family: 'Bembo', Georgia, serif; font-style: italic; font-size: 26px; line-height: 1.05;
 }
 
+/* Featured editorials band (Culture): the columns lead the page, two big cards
+   a row, so they read as the main story rather than an afterthought. */
+.ed-band-feature { margin-top: 0; padding: 40px 0 56px; }
+.ed-band-feature .ed-grid { grid-template-columns: repeat(2, 1fr); gap: 48px 40px; }
+.ed-band-feature .ed-card-img { aspect-ratio: 3/2; margin-bottom: 20px; }
+.ed-band-feature .ed-card-title { font-size: clamp(30px, 3.2vw, 44px); }
+@media (max-width: 720px) {
+  .ed-band-feature .ed-grid { grid-template-columns: 1fr; padding: 0 16px; gap: 36px; }
+  .ed-band-feature .ed-head { padding: 0 16px 20px; }
+}
+
+/* Books and podcasts under the Culture columns: a lighter, smaller grid with no
+   feature tiles, so it supports the columns instead of competing with them. */
+.cat-compact { padding-top: 44px; }
+.cat-compact .edit-band { padding-top: 10px; }
+.cat-compact .edit-grid { grid-template-columns: repeat(6, 1fr); gap: 30px 20px; }
+.cat-compact .ec { grid-column: auto !important; grid-row: auto !important; }
+.cat-compact .ec-img { aspect-ratio: 3/4 !important; padding: 12% !important; }
+.cat-compact .ec-brand { font-size: 14px; }
+.cat-compact .ec-name { font-size: 10px; }
+@media (max-width: 1024px) { .cat-compact .edit-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 720px) { .cat-compact .edit-grid { grid-template-columns: repeat(2, 1fr); } }
+
 /* ===== Photo grid (Travel section + city guides) ===== */
 .photo-band { padding: 44px 0 48px; }
 .photo-head { padding: 0 56px 22px; }
