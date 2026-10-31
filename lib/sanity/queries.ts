@@ -62,7 +62,7 @@ function mapProduct(r: RawProduct): Product {
 export async function fetchCurrentEdit(): Promise<Edit | null> {
   if (!sanityClient) return null;
   const data = await sanityClient.fetch(
-    `*[_type == "edit" && status == "published"] | order(publishDate desc)[0]{
+    `*[_type == "edit" && status == "published"] | order(coalesce(publishDate, _createdAt) desc)[0]{
       title, eyebrow, "issue": "Issue No. " + string(issueNumber), description,
       heroCollage,
       "products": featuredProducts[]->${PRODUCT_PROJECTION}
@@ -87,35 +87,53 @@ export async function fetchCurrentEdit(): Promise<Edit | null> {
       caption: "",
       num: String(i + 1).padStart(2, "0"),
     })),
-    products: products.filter((p) => p.department !== "men"),
+    products: products.filter(menFilter(products)),
   };
 }
 
-// The N latest published edits, newest first — for the homepage carousel that
-// lets a reader toggle between the two most recent edits (cover + products).
+// Men's pieces stay out of the women's edits on the homepage, but an edit made
+// entirely of men's pieces (e.g. Men Uniform Weekend) shows them all.
+function menFilter(products: Product[]): (p: Product) => boolean {
+  const menEdit = products.length > 0 && products.every((p) => p.department === "men");
+  return (p) => menEdit || p.department !== "men";
+}
+
+// The edits for the homepage carousel that lets a reader toggle between them
+// (cover + products): the ones pinned in the Studio, then the newest.
 export async function fetchLatestEdits(limit = 2): Promise<Edit[]> {
   if (!sanityClient) return [];
-  const rows = await sanityClient.fetch(
-    `*[_type == "edit" && status == "published"] | order(publishDate desc){
-      title, eyebrow, "issue": "Issue No. " + string(issueNumber), description,
-      heroCollage, heroCoverMobile,
-      "products": featuredProducts[]->${PRODUCT_PROJECTION},
-      "sections": sections[]{ title, "products": products[]->${PRODUCT_PROJECTION} }
+  // Edits picked under Homepage > Top carousel lead, in the order picked; the
+  // rest follow newest first (an edit with no publish date counts from when it
+  // was created, so it can't jump the queue).
+  const d = await sanityClient.fetch(
+    `{
+      "pinned": *[_type == "homepage" && _id == "homepage"][0].carouselEdits[]._ref,
+      "rows": *[_type == "edit" && status == "published"] | order(coalesce(publishDate, _createdAt) desc){
+        _id, title, eyebrow, "issue": "Issue No. " + string(issueNumber), description,
+        heroCollage, heroCoverMobile,
+        "products": featuredProducts[]->${PRODUCT_PROJECTION},
+        "sections": sections[]{ title, "products": products[]->${PRODUCT_PROJECTION} }
+      }
     }`
   );
+  const pinned: string[] = d?.pinned ?? [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const rows: any[] = [...(d?.rows ?? [])].sort((a, b) => {
+    const ia = pinned.indexOf(a._id), ib = pinned.indexOf(b._id);
+    return (ia < 0 ? Infinity : ia) - (ib < 0 ? Infinity : ib);
+  });
   const activeMapped = (arr: (RawProduct | null)[] | undefined): Product[] =>
-    (arr ?? [])
-      .filter((p): p is RawProduct => p != null && p.active !== false)
-      .map(mapProduct)
-      .filter((p: Product) => p.department !== "men");
-  return (rows ?? [])
-    .slice(0, limit)
+    (arr ?? []).filter((p): p is RawProduct => p != null && p.active !== false).map(mapProduct);
+  return rows
+    .slice(0, Math.max(limit, pinned.length))
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .map((data: any): Edit => {
-      const products = activeMapped(data.products);
       const rawSections = (data.sections ?? []) as { title: string; products: (RawProduct | null)[] }[];
+      const all = [...activeMapped(data.products), ...rawSections.flatMap((s) => activeMapped(s.products))];
+      const keep = menFilter(all);
+      const products = activeMapped(data.products).filter(keep);
       const sections = rawSections
-        .map((s) => ({ title: s.title, products: activeMapped(s.products) }))
+        .map((s) => ({ title: s.title, products: activeMapped(s.products).filter(keep) }))
         .filter((s) => s.products.length > 0);
       const lines = String(data.title ?? "").split(/\s*\n\s*|\s{2,}/);
       return {

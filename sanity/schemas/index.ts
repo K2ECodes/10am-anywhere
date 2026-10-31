@@ -247,11 +247,21 @@ export const homepage = {
   title: "Homepage",
   type: "document",
   fieldsets: [
+    { name: "carousel", title: "Top carousel (the big edit at the top)", options: { collapsible: true } },
     { name: "picks", title: "Our Picks of the Week (changes weekly)", options: { collapsible: true } },
     { name: "whatsOn", title: "What's On (changes every two weeks)", options: { collapsible: true } },
     { name: "feature", title: "Feature edit, Men or Beauty (changes monthly)", options: { collapsible: true } },
   ],
   fields: [
+    {
+      name: "carouselEdits",
+      title: "Edits to show first",
+      description: "Drag to set the order. These lead the carousel at the top of the homepage, followed by the newest edits. Empty: the newest edits first.",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "edit" }], options: { filter: 'status == "published"' } }],
+      validation: (r: any) => r.unique().max(4),
+      fieldset: "carousel",
+    },
     { name: "picksTitle", title: "Headline", type: "string", initialValue: "Our Picks of the Week", fieldset: "picks" },
     {
       name: "picks",
