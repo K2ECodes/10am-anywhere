@@ -233,7 +233,6 @@ export async function getHomepage(): Promise<HomepageData> {
     }
   }
   return {
-    order: ["feature", "edits", "picks", "whatsOn"],
     picks: { title: "Our Picks of the Week", seconds: 1, products: seedEdit.products.slice(0, 3) },
     whatsOn: { title: "What's On?", items: editorialsByCategory("culture").slice(0, 2) },
     feature: {

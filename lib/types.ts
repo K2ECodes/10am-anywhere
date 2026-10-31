@@ -158,13 +158,7 @@ export interface EditorialRef {
 }
 
 /** The homepage's editor-controlled sections (Sanity "homepage" document). */
-/** The homepage's reorderable bands, top to bottom. */
-export type HomeSection = "edits" | "picks" | "whatsOn" | "feature";
-export const HOME_SECTIONS: HomeSection[] = ["edits", "picks", "whatsOn", "feature"];
-
 export interface HomepageData {
-  /** Band order, set in the Studio (Homepage > Section order). */
-  order: HomeSection[];
   picks: { title: string; seconds: number; products: Product[] };
   whatsOn: { title: string; items: EditorialRef[] };
   feature: {

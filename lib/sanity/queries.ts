@@ -1,5 +1,4 @@
 import type { Edit, MenEdit, Product, Department, Founder, Article, CityGuide, EditorialRef, HomepageData } from "../types";
-import { HOME_SECTIONS, type HomeSection } from "../types";
 import { sanityClient } from "./client";
 import { urlForImage } from "./image";
 
@@ -389,7 +388,7 @@ export async function fetchHomepage(): Promise<HomepageData | null> {
   const d = await sanityClient.fetch(
     `{
       "home": *[_type == "homepage" && _id == "homepage"][0]{
-        sectionOrder, picksTitle, picksSeconds,
+        picksTitle, picksSeconds,
         "picks": picks[]->${PRODUCT_PROJECTION},
         whatsOnTitle,
         "whatsOn": whatsOn[]->${EDITORIAL_REF_PROJECTION},
@@ -420,14 +419,7 @@ export async function fetchHomepage(): Promise<HomepageData | null> {
     featureProducts = (rows ?? []).map(mapProduct);
   }
 
-  // Editors' order first; any band they left out keeps its usual place after.
-  const chosen = ((home.sectionOrder ?? []) as string[]).filter((k): k is HomeSection =>
-    (HOME_SECTIONS as string[]).includes(k)
-  );
-  const order = [...chosen.filter((k, i) => chosen.indexOf(k) === i), ...HOME_SECTIONS.filter((k) => !chosen.includes(k))];
-
   return {
-    order,
     picks: {
       title: home.picksTitle || "Our Picks of the Week",
       seconds: typeof home.picksSeconds === "number" && home.picksSeconds > 0 ? home.picksSeconds : 1,
