@@ -10,18 +10,21 @@ import { getLatestEdits, getHomepage, getClockCities } from "@/lib/content";
 // immediately, instead of being frozen into the build-time static page.
 export const dynamic = "force-dynamic";
 
-// Order follows Silke's homepage sketch: current edit, Our Picks of the Week,
-// What's On, the Men or Beauty feature edit, then the city clocks.
+// The four bands (current edits, Our Picks of the Week, What's On, the Men or
+// Beauty feature edit) run in the order set in the Studio under Homepage >
+// Section order; the city clocks and newsletter form always close the page.
 export default async function Home() {
   const [edits, home] = await Promise.all([getLatestEdits(2), getHomepage()]);
   const cities = getClockCities();
 
   return (
     <>
-      <EditCarousel edits={edits} />
-      <PicksOfTheWeek {...home.picks} />
-      <WhatsOn {...home.whatsOn} />
-      <FeatureEdit data={home.feature} />
+      {home.order.map((key) =>
+        key === "edits" ? <EditCarousel key={key} edits={edits} /> :
+        key === "picks" ? <PicksOfTheWeek key={key} {...home.picks} /> :
+        key === "whatsOn" ? <WhatsOn key={key} {...home.whatsOn} /> :
+        <FeatureEdit key={key} data={home.feature} />
+      )}
       <AlwaysBand cities={cities} />
       <FlodeskForm />
     </>

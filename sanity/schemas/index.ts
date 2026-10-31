@@ -252,6 +252,27 @@ export const homepage = {
     { name: "feature", title: "Feature edit, Men or Beauty (changes monthly)", options: { collapsible: true } },
   ],
   fields: [
+    {
+      name: "sectionOrder",
+      title: "Section order",
+      description: "Drag to set the order of the homepage sections, top to bottom. Any section left out keeps its usual place below the ones listed.",
+      type: "array",
+      of: [
+        {
+          type: "string",
+          options: {
+            list: [
+              { title: "Current edits (the big carousel)", value: "edits" },
+              { title: "Our Picks of the Week", value: "picks" },
+              { title: "What's On", value: "whatsOn" },
+              { title: "Feature edit (Men or Beauty)", value: "feature" },
+            ],
+          },
+        },
+      ],
+      initialValue: ["feature", "edits", "picks", "whatsOn"],
+      validation: (r: any) => r.unique().max(4),
+    },
     { name: "picksTitle", title: "Headline", type: "string", initialValue: "Our Picks of the Week", fieldset: "picks" },
     {
       name: "picks",
