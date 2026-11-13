@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import FlodeskForm from "./FlodeskForm";
+import FlodeskForm, { MEMBER_EVENT } from "./FlodeskForm";
 
 // Shown once per visit (session), 3s after the site opens, to visitors who have
-// not yet subscribed. Subscribing anywhere sets the `nl_ok` cookie, which both
+// not yet members. Becoming one anywhere sets the `nl_ok` cookie, which both
 // suppresses this popup and unlocks the members-only Travel / Culture sections.
 const SESSION_KEY = "10am_sub_popup_shown";
 const DELAY_MS = 3000;
@@ -35,6 +35,13 @@ export default function SubscribePopup() {
       setOpen(true);
     }, DELAY_MS);
     return () => clearTimeout(t);
+  }, []);
+
+  // Once they are recognised or signed up, let them read the confirmation, then close.
+  useEffect(() => {
+    const done = () => setTimeout(() => setOpen(false), 2500);
+    window.addEventListener(MEMBER_EVENT, done);
+    return () => window.removeEventListener(MEMBER_EVENT, done);
   }, []);
 
   useEffect(() => {

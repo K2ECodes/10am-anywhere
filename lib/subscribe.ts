@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { getServerSupabase } from "@/lib/supabase/server";
+import { MEMBER_COOKIE, MEMBER_COOKIE_OPTIONS } from "@/lib/member-cookie";
 
 export interface SubscribeResult {
   ok: boolean;
@@ -98,7 +99,7 @@ export async function subscribeEmail(input: {
     console.error("[newsletter] welcome email skipped:", err);
   }
 
-  cookies().set("nl_ok", "1", { path: "/", maxAge: 60 * 60 * 24 * 365, sameSite: "lax" });
+  cookies().set(MEMBER_COOKIE, "1", MEMBER_COOKIE_OPTIONS);
 
   return { ok: true, message: SUCCESS };
 }

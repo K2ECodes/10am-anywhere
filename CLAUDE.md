@@ -211,14 +211,26 @@ can create subscribers and add them to segments, but it cannot trigger the welco
 To welcome an imported list, send a **one-time Flodesk campaign** (its report is
 also the only delivery confirmation; there is no send-activity API).
 
-**Members gate** (`components/NewsletterGate.tsx`): Culture/Travel are gated behind
-the `nl_ok` cookie (`lib/newsletter-gate.ts`). The gate renders the Flodesk form and
-watches it for `[data-ff-el="success"]` / `data-ff-stage="success"`, then sets the
-cookie client-side and refreshes. ⚠️ **Known issue:** subscribers who sign up via
-the popup/footer/banner Flodesk forms never get the cookie, so the gate does not
-recognise them and repeatedly asks them to subscribe. Cookie-based gating is
-unreliable without real user accounts. The recommended fix (pending client sign-off)
-is to open Culture and Travel to everyone.
+**Members gate** (`components/NewsletterGate.tsx`): Culture/Travel (and city
+guides, culture articles) are gated behind the `nl_ok` cookie
+(`lib/newsletter-gate.ts`, settings in `lib/member-cookie.ts`). Membership is
+handled inside `FlodeskForm`, so it works the same in every placement:
+
+- Before Flodesk sees an email, the form asks **`/api/members`**, which looks the
+  email up in Flodesk (`GET /v1/subscribers/<email>`, the `@` must NOT be
+  URL-encoded or Flodesk 404s). `active` or `unconfirmed` = member: the server sets
+  the cookie and the form shows "Welcome back" **without contacting Flodesk**, so a
+  returning member never gets a second opt-in or welcome email.
+- A new email goes through the native Flodesk form as before; when Flodesk shows
+  its success state the form posts `{ joined: true }` and the server sets the cookie.
+- Either way the form fires a `10am:member` window event (the gate refreshes, the
+  popup closes).
+- The cookie lasts 400 days (the browser maximum) and **`middleware.ts` renews it
+  on every visit**, so access is effectively permanent. A new device or cleared
+  cookies: the member just enters their email again in any form.
+
+Test end to end with Playwright, blocking only POSTs to `*flodesk.com*/submit`
+(blocking all of form.flodesk.com stops the form from rendering).
 
 ---
 
@@ -267,7 +279,8 @@ suppress the 3-second popup; click "Essential only"/"Accept all" to control cons
 
 ## Open items
 
-- Culture/Travel gate: decide whether to remove it (recommended) — see above.
+- Culture/Travel gate: membership now works reliably (see Members gate). Whether to
+  open these sections to AI crawlers is still the client's call.
 - Flodesk sending domain is not authenticated → emails land in spam. Fix with the
   DKIM/CNAME records from Flodesk → Account → Domain authentication.
 - Several products still lack prices / exact affiliate URLs.

@@ -1705,3 +1705,11 @@ a.gp-name:hover { text-decoration: underline; text-underline-offset: 3px; }
   .whatson-grid { grid-template-columns: 1fr; }
   .feature-head.has-image { grid-template-columns: 1fr; gap: 24px; }
 }
+
+/* Members: the gate's "already on the list" line, and the message a returning
+   member sees in place of the signup form (components/FlodeskForm.tsx). */
+.nl-gate-member { margin-top: -6px; font-style: italic; }
+.fd-welcome-back {
+  font-family: 'Bembo', Georgia, serif; font-size: 18px; line-height: 1.5;
+  text-align: center; margin: 18px auto; max-width: 420px;
+}

@@ -1,12 +1,14 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import { engineToken } from "@/lib/engine/auth";
+import { MEMBER_COOKIE, MEMBER_COOKIE_OPTIONS } from "@/lib/member-cookie";
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
 const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
 
 // Refreshes the Supabase auth session on navigation so server components see a
-// current user. No-op when Supabase is not configured.
+// current user (no-op when Supabase is not configured), and renews the members
+// cookie.
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -24,9 +26,16 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next({ request: { headers } });
   }
 
-  if (!url || !anonKey) return NextResponse.next();
-
   const response = NextResponse.next({ request });
+
+  // Members stay members: renew the cookie on every visit (browsers cap a cookie
+  // at 400 days, so this is what makes access last for good).
+  if (request.cookies.get(MEMBER_COOKIE)?.value === "1") {
+    response.cookies.set(MEMBER_COOKIE, "1", MEMBER_COOKIE_OPTIONS);
+  }
+
+  if (!url || !anonKey) return response;
+
   const supabase = createServerClient(url, anonKey, {
     cookies: {
       getAll() {
