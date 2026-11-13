@@ -281,6 +281,7 @@ suppress the 3-second popup; click "Essential only"/"Accept all" to control cons
 
 - Culture/Travel gate: membership now works reliably (see Members gate). Whether to
   open these sections to AI crawlers is still the client's call.
-- Flodesk sending domain is not authenticated → emails land in spam. Fix with the
-  DKIM/CNAME records from Flodesk → Account → Domain authentication.
+- Flodesk sending domain: authenticated in DNS (checked 2026-11-13): `fdesp` (SPF)
+  and `fde._domainkey` (DKIM) CNAME to fdske.com, `_dmarc` TXT `p=none`. DNS is at
+  IONOS.
 - Several products still lack prices / exact affiliate URLs.
