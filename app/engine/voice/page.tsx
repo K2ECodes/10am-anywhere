@@ -7,8 +7,8 @@ export const dynamic = "force-dynamic";
 export default async function VoicePage() {
   const show = await getVoiceShowcase();
   const reels = [
-    { src: show.email, label: "The email script", note: "Silke's first draft, word for word. About 84 seconds." },
-    { src: show.takes, label: "The reworked lines", note: "The shorter wording from Silke's own takes. About 70 seconds." },
+    { src: show.email, label: "In Silke's voice", note: "Her AI voice, chatty and quick. About 33 seconds.", dl: "silke-voice" },
+    { src: show.takes, label: "In a stock voice", note: "Joanna, a warm conversational presenter voice. About 33 seconds.", dl: "stock-voice" },
   ].filter((r) => r.src);
 
   return (
@@ -23,8 +23,8 @@ export default async function VoicePage() {
       <section className="eng-section">
         <h2 className="eng-h2">How to stay sane in December</h2>
         <p className="eng-h2-sub">
-          Pepa&apos;s edit, voiced entirely by the AI voice. Each slide now holds for as long as its line, so the reel runs
-          longer than the silent cut. Two versions to choose from.
+          Pepa&apos;s edit, voiced in one easy, conversational take that follows the text on each slide. Short and quick,
+          more chat than performance. Two voices to choose from.
         </p>
         {reels.length ? (
           <div className="eng-voice-reels">
@@ -34,7 +34,7 @@ export default async function VoicePage() {
                 <figcaption>
                   <b>{r.label}</b>
                   <small>{r.note}</small>
-                  <a className="eng-btn ghost" href={r.src! + "?dl=december-reel-" + (r.src === show.email ? "email-script" : "reworked") + ".mp4"}>Download</a>
+                  <a className="eng-btn ghost" href={r.src! + "?dl=december-reel-" + r.dl + ".mp4"}>Download</a>
                 </figcaption>
               </figure>
             ))}

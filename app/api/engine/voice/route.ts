@@ -1,18 +1,18 @@
 import { NextResponse } from "next/server";
-import { SILKE_VOICE_ID, DELIVERY, MAX_CHARS, type Delivery } from "@/lib/engine/voice-clone";
+import { VOICES, DELIVERY, MAX_CHARS, type Delivery, type VoiceKey } from "@/lib/engine/voice-clone";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
-// Speaks a line in Silke's cloned voice (HeyGen Voice instant clone, made from her
-// own recordings). Returns a WAV the team can play, download and drop into a reel.
+// Speaks a line in Silke's cloned voice (a HeyGen Voice instant clone made from her own
+// recordings) or the stock Joanna voice. Returns a WAV the team can play, download and use in a reel.
 // Behind the engine password (middleware); the HeyGen key never leaves the server.
 export async function POST(req: Request) {
   const key = process.env.HEYGEN_API_KEY;
   if (!key) return NextResponse.json({ error: "voice_offline" }, { status: 503 });
 
-  const { text, delivery } = (await req.json().catch(() => ({}))) as { text?: string; delivery?: Delivery };
+  const { text, delivery, voice } = (await req.json().catch(() => ({}))) as { text?: string; delivery?: Delivery; voice?: VoiceKey };
   // House style: no long dashes; the voice reads commas and full stops as its pauses.
   const line = (text ?? "").replace(/\s*[–—]\s*/g, ", ").replace(/\s+/g, " ").trim();
   if (!line) return NextResponse.json({ error: "Write a line first." }, { status: 400 });
@@ -23,10 +23,10 @@ export async function POST(req: Request) {
     headers: { "X-Api-Key": key, "Content-Type": "application/json" },
     body: JSON.stringify({
       model: process.env.HEYGEN_TTS_MODEL || "heygen-voice-1-turbo-free",
-      voice_id: process.env.HEYGEN_SILKE_VOICE_ID || SILKE_VOICE_ID,
+      voice_id: (VOICES[voice ?? "silke"] ?? VOICES.silke).id,
       text: line,
       language: "en",
-      expressiveness_boost: DELIVERY[delivery ?? "natural"]?.boost ?? DELIVERY.natural.boost,
+      expressiveness_boost: DELIVERY[delivery ?? "lively"]?.boost ?? DELIVERY.lively.boost,
     }),
     signal: AbortSignal.timeout(50_000),
   }).catch(() => null);
