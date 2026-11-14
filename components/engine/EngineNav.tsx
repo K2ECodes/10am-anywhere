@@ -7,6 +7,7 @@ const LINKS = [
   { href: "/engine", label: "Overview" },
   { href: "/engine/aeo", n: "01", label: "AEO" },
   { href: "/engine/content", n: "02", label: "Content Engine" },
+  { href: "/engine/voice", label: "Voice Studio" },
   { href: "/engine/growth", n: "03", label: "Growth Engine" },
 ];
 

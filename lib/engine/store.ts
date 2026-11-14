@@ -157,3 +157,11 @@ export async function getShowcase(): Promise<{ reel: string | null; poster: stri
   );
   return { reel: d?.reel ?? null, poster: d?.poster ?? null };
 }
+
+// Voice Studio showcase: the December reel voiced in Silke's clone, two script versions.
+export async function getVoiceShowcase(): Promise<{ email: string | null; takes: string | null; poster: string | null }> {
+  const d = await fetchLive<{ email?: string; takes?: string; poster?: string } | null>(
+    `*[_id == "engineShowcase.voice"][0]{ "email": reelEmail.asset->url, "takes": reelTakes.asset->url, "poster": poster.asset->url }`
+  );
+  return { email: d?.email ?? null, takes: d?.takes ?? null, poster: d?.poster ?? null };
+}

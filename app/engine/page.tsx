@@ -45,6 +45,12 @@ export default async function EngineOverview() {
         </Link>
       </div>
 
+      <Link href="/engine/voice" className="eng-card eng-voice-promo">
+        <span className="eng-pill ok">New</span>
+        <span><b>Voice Studio.</b> An AI voice trained on Silke&apos;s recordings: write a line, hear it in her voice, drop it into a reel. The December reel is voiced with it.</span>
+        <span className="eng-deliv-go">Open</span>
+      </Link>
+
       {source ? (
         <section className="eng-section">
           <h2 className="eng-h2">This week&apos;s source</h2>
