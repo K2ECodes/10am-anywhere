@@ -37,7 +37,16 @@ async function postMembers(body: object): Promise<boolean> {
   }
 }
 
-export default function FlodeskForm() {
+type Props = {
+  // Show only the email field. Flodesk's first-name field is optional, so hiding
+  // it in one placement doesn't change what Flodesk receives or sends.
+  emailOnly?: boolean;
+  // Our own wording on Flodesk's button and email field, for designed placements.
+  submitLabel?: string;
+  emailPlaceholder?: string;
+};
+
+export default function FlodeskForm({ emailOnly = false, submitLabel, emailPlaceholder }: Props = {}) {
   const rawId = useId();
   const containerId = `fd-form-${FORM_ID}-${rawId.replace(/[^a-zA-Z0-9]/g, "")}`;
   const wrapRef = useRef<HTMLDivElement | null>(null);
@@ -131,16 +140,50 @@ export default function FlodeskForm() {
       postMembers({ email, joined: true, source: window.location.pathname }).then(announce);
     };
 
+    // Dress Flodesk's form for this placement. Flodesk renders decoy fields that it
+    // hides with inline styles, so the real ones are those whose own display isn't
+    // "none" (checked on the element itself, so it works while the popup is closed).
+    // Idempotent, because it runs on every mutation, including our own.
+    const dress = () => {
+      if (!emailOnly && !submitLabel && !emailPlaceholder) return;
+      const groups = Array.from(el.querySelectorAll<HTMLElement>(".fd-form-group")).filter(
+        (g) => g.dataset.tenamHidden === "1" || getComputedStyle(g).display !== "none"
+      );
+      const emailGroup = groups[groups.length - 1];
+      if (emailOnly) {
+        for (const g of groups.slice(0, -1)) {
+          if (g.dataset.tenamHidden !== "1") {
+            g.dataset.tenamHidden = "1";
+            g.style.setProperty("display", "none", "important");
+          }
+        }
+      }
+      const input = emailGroup?.querySelector("input");
+      if (input && emailPlaceholder && input.placeholder !== emailPlaceholder) {
+        input.placeholder = emailPlaceholder;
+        input.setAttribute("aria-label", emailPlaceholder);
+        input.inputMode = "email";
+        input.autocomplete = "email";
+        emailGroup.classList.add("fd-own-placeholder");
+      }
+      const label = el.querySelector<HTMLElement>('button[type="submit"] [data-draw-element="editable"]');
+      if (label && submitLabel && label.textContent !== submitLabel) label.textContent = submitLabel;
+    };
+    dress();
+
     el.addEventListener("click", intercept, true);
     el.addEventListener("submit", intercept, true);
-    const obs = new MutationObserver(onChange);
+    const obs = new MutationObserver(() => {
+      dress();
+      onChange();
+    });
     obs.observe(el, { subtree: true, childList: true, attributes: true });
     return () => {
       el.removeEventListener("click", intercept, true);
       el.removeEventListener("submit", intercept, true);
       obs.disconnect();
     };
-  }, []);
+  }, [emailOnly, submitLabel, emailPlaceholder]);
 
   return (
     <div ref={wrapRef} className="fd-wrap">
