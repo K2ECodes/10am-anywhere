@@ -148,13 +148,13 @@ a.promobar:hover .promobar-text { text-decoration: underline; text-underline-off
    width; the text scales with the sticker (container units). */
 .promo-sticker {
   position: absolute; top: 8px; left: 8px; z-index: 3; width: var(--sticker, 54px); aspect-ratio: 1;
-  border-radius: 50%; background: #0b0b0b; color: #fff; padding: 2.5px; box-sizing: border-box;
+  border-radius: 50%; background: #0b0b0b; color: #fff; padding: 3px; box-sizing: border-box;
   container-type: inline-size; pointer-events: none; box-shadow: 0 2px 6px rgba(0,0,0,0.18);
 }
 /* A card with a sticker keeps a strip at the top for it, so the product image
    sits below the sticker and is never covered. */
-.ec-img.has-sticker { --sticker: 54px; padding-top: calc(var(--sticker) + 14px); }
-.picks-square.has-sticker { --sticker: 58px; }
+.ec-img.has-sticker { --sticker: 72px; padding-top: calc(var(--sticker) + 14px); }
+.picks-square.has-sticker { --sticker: 76px; }
 .picks-square.has-sticker .picks-img { padding-top: calc(var(--sticker) + 16px); }
 .picks-square .promo-sticker { top: 8px; left: 8px; }
 .promo-sticker-ring {
@@ -167,8 +167,8 @@ a.promobar:hover .promobar-text { text-decoration: underline; text-underline-off
 .promo-sticker-code { font-weight: 700; font-size: 17.5cqw; letter-spacing: -0.01em; }
 @media (max-width: 640px) {
   .ec-promo { font-size: 12px; margin: 0 0 4px; }
-  .ec-img.has-sticker { --sticker: 46px; padding-top: calc(var(--sticker) + 10px); }
-  .picks-square.has-sticker { --sticker: 50px; }
+  .ec-img.has-sticker { --sticker: 60px; padding-top: calc(var(--sticker) + 10px); }
+  .picks-square.has-sticker { --sticker: 64px; }
   .promo-sticker { top: 6px; left: 6px; padding: 2px; }
 }
 @media (max-width: 380px) {
