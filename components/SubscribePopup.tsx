@@ -81,7 +81,9 @@ export default function SubscribePopup() {
         <div className="subpop-copy">
           <div className="subpop-eyebrow">From the founders</div>
           <h2 className="subpop-title" id="subpop-title">
-            Some things we only share with friends.
+            Some things we only
+            <br />
+            share with friends.
           </h2>
           <p className="subpop-text">
             Your inside track to a world of style, travel and culture. Discover our latest finds, favourite places,

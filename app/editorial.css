@@ -1106,25 +1106,31 @@ a { cursor: pointer; }
 .subpop-form .fd-welcome-back { color: #fff; font-size: 19px; }
 
 @media (max-width: 900px) {
+  /* Phone: everything fits one screen, no scrolling. The panel is exactly the
+     visible height (dvh, so Safari's bars are accounted for) and the photo is the
+     part that gives: it takes whatever height the copy and form leave over. Type
+     and spacing also ease down on short phones (iPhone SE and smaller). */
   .subpop { padding: 0; align-items: stretch; }
   .subpop-panel {
-    grid-template-columns: 1fr; gap: 0; max-height: 100vh; max-height: 100dvh; height: 100%;
-    padding: 74px 22px 36px; align-items: start; align-content: start;
+    display: flex; flex-direction: column; gap: 0;
+    height: 100vh; height: 100dvh; max-height: none; overflow: hidden;
+    padding: 64px 22px clamp(14px, 2.6dvh, 26px);
   }
-  .subpop-close { top: 14px; right: 18px; width: 44px; height: 44px; }
-  .subpop-photo { order: 1; margin: 0 0 26px; aspect-ratio: 5 / 4; align-self: auto; }
-  .subpop-photo img { object-position: 50% 78%; }
-  .subpop-copy { order: 2; text-align: center; }
-  .subpop-eyebrow { font-size: 13px; margin-bottom: 12px; }
-  .subpop-title { font-size: 40px; line-height: 1.22; margin: 0 auto 16px; }
-  .subpop-text { font-size: 16px; line-height: 1.55; text-align: left; margin: 0 0 18px; }
-  .subpop-form .fd-wrap .fd-form-content { flex-direction: column; gap: 14px; }
+  .subpop-close { top: 10px; right: 14px; width: 42px; height: 42px; }
+  .subpop-photo { order: 1; flex: 1 1 0; min-height: 90px; margin: 0 0 clamp(12px, 2.4dvh, 22px); align-self: stretch; }
+  .subpop-photo img { object-position: 50% 64%; }
+  .subpop-copy { order: 2; flex: 0 0 auto; text-align: center; }
+  .subpop-eyebrow { font-size: 12px; margin-bottom: clamp(4px, 1dvh, 10px); }
+  .subpop-title { font-size: clamp(30px, 4.4dvh, 38px); line-height: 1.2; margin: 0 auto clamp(6px, 1.4dvh, 14px); }
+  .subpop-text { font-size: clamp(14px, 1.85dvh, 15.5px); line-height: 1.5; text-align: left; margin: 0 0 clamp(8px, 1.6dvh, 16px); }
+  .subpop-form .fd-wrap .fd-form-content { flex-direction: column; gap: 10px; }
   .subpop-form .fd-wrap [class$="__fields"],
   .subpop-form .fd-wrap [class$="__footer"] { flex: 0 0 auto !important; width: 100% !important; }
-  .subpop-form .fd-wrap .fd-form-control { font-size: 17px !important; text-align: left; }
-  .subpop-form .fd-wrap .fd-btn { width: 100% !important; min-height: 54px; font-size: 17px !important; }
+  .subpop-form .fd-wrap .fd-form-control { font-size: 16px !important; text-align: left; padding: clamp(8px, 1.4dvh, 14px) 0 !important; }
+  .subpop-form .fd-wrap .fd-btn { width: 100% !important; min-height: clamp(44px, 6dvh, 52px); font-size: 16px !important; }
   .subpop-sign, .subpop-small { text-align: left; }
-  .subpop-sign { font-size: 16px; margin: 26px 0 10px; }
+  .subpop-sign { font-size: 15px; margin: clamp(10px, 2dvh, 18px) 0 4px; }
+  .subpop-small { font-size: 12.5px; }
 }
 
 /* search panel */
