@@ -13,11 +13,14 @@ export default function PromoBanner({ banner, serverNow }: { banner: Banner; ser
   const [now, setNow] = useState(serverNow);
 
   useEffect(() => {
-    const tick = () => setNow(Date.now());
+    // Keep time by the server's clock, not the visitor's (a phone set to the wrong
+    // time would otherwise show the wrong countdown, or hide the banner).
+    const skew = serverNow - Date.now();
+    const tick = () => setNow(Date.now() + skew);
     tick();
     const t = setInterval(tick, 1000);
     return () => clearInterval(t);
-  }, []);
+  }, [serverNow]);
 
   if (now < banner.start || now >= banner.end) return null;
 
