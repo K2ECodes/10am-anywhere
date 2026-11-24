@@ -119,6 +119,7 @@ a { cursor: pointer; }
 }
 a.promobar:hover .promobar-text { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
 .promobar-text { font-family: 'Bembo', Georgia, serif; font-style: italic; font-size: 16px; letter-spacing: 0.01em; line-height: 1.25; text-align: center; }
+.promobar-line { display: block; }
 .promobar-clock { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
 .promobar-ends { font-family: 'Billion Monoline', 'Lust', cursive; font-size: 19px; line-height: 1; margin-right: 4px; transform: translateY(1px); }
 .promobar-unit {
@@ -130,7 +131,7 @@ a.promobar:hover .promobar-text { text-decoration: underline; text-underline-off
 .promobar-unit b { font-style: normal; font-weight: 600; font-size: 15px; font-variant-numeric: tabular-nums; min-width: 1.15em; text-align: right; }
 @media (max-width: 640px) {
   .promobar { gap: 4px 10px; padding: 6px 10px 7px; }
-  .promobar-text { font-size: 12.5px; flex-basis: 100%; }
+  .promobar-text { font-size: 13px; flex-basis: 100%; line-height: 1.3; }
   .promobar-ends { font-size: 16px; }
   .promobar-unit { font-size: 10.5px; padding: 2px 6px 1px; }
   .promobar-unit b { font-size: 13px; }
@@ -138,35 +139,40 @@ a.promobar:hover .promobar-text { text-decoration: underline; text-underline-off
 
 /* ===== DISCOUNT CODE on a product (Studio: product > Discount code) ===== */
 .ec-promo {
-  font-family: 'Billion Monoline', 'Lust', cursive; color: #b3141b; font-size: 19px; line-height: 1.15;
-  margin: -2px 0 5px;
+  font-family: 'Bembo', Georgia, serif; color: #b3141b; font-size: 13px; line-height: 1.3; letter-spacing: 0.02em;
+  margin: 0 0 5px;
 }
-.ec-promo-code { font-family: 'Bembo', Georgia, serif; font-weight: 700; font-size: 13px; letter-spacing: 0.04em; }
+.ec-promo-code { font-weight: 700; letter-spacing: 0.04em; }
 .picks-meta .ec-promo { margin-top: 2px; }
 /* The round code sticker, top-left of the product image. Sized from the image's
    width; the text scales with the sticker (container units). */
 .promo-sticker {
-  position: absolute; top: 8px; left: 8px; z-index: 3; width: clamp(82px, 30%, 120px); aspect-ratio: 1;
-  border-radius: 50%; background: #0b0b0b; color: #fff; padding: 4px; box-sizing: border-box;
+  position: absolute; top: 8px; left: 8px; z-index: 3; width: var(--sticker, 54px); aspect-ratio: 1;
+  border-radius: 50%; background: #0b0b0b; color: #fff; padding: 2.5px; box-sizing: border-box;
   container-type: inline-size; pointer-events: none; box-shadow: 0 2px 6px rgba(0,0,0,0.18);
 }
-.picks-square .promo-sticker { width: clamp(70px, 24%, 120px); top: 10px; left: 10px; }
+/* A card with a sticker keeps a strip at the top for it, so the product image
+   sits below the sticker and is never covered. */
+.ec-img.has-sticker { --sticker: 54px; padding-top: calc(var(--sticker) + 14px); }
+.picks-square.has-sticker { --sticker: 58px; }
+.picks-square.has-sticker .picks-img { padding-top: calc(var(--sticker) + 16px); }
+.picks-square .promo-sticker { top: 8px; left: 8px; }
 .promo-sticker-ring {
   width: 100%; height: 100%; border: 1px solid rgba(255,255,255,0.9); border-radius: 50%; box-sizing: border-box;
   display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
   font-family: 'Bembo', Georgia, serif; line-height: 1;
 }
-.promo-sticker-off { font-weight: 700; font-size: 17.5cqw; letter-spacing: 0.01em; margin-bottom: 5cqw; }
-.promo-sticker-with { font-size: 7.6cqw; letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.22; margin-bottom: 3cqw; }
-.promo-sticker-code { font-weight: 700; font-size: 23cqw; letter-spacing: -0.01em; }
+.promo-sticker-off { font-weight: 700; font-size: 13.5cqw; letter-spacing: 0; margin-bottom: 4cqw; }
+.promo-sticker-with { font-size: 6.4cqw; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.2; margin-bottom: 3cqw; }
+.promo-sticker-code { font-weight: 700; font-size: 17.5cqw; letter-spacing: -0.01em; }
 @media (max-width: 640px) {
-  .ec-promo { font-size: 15.5px; margin: -2px 0 4px; white-space: nowrap; }
-  .ec-promo-code { font-size: 11px; }
-  .promo-sticker { top: 6px; left: 6px; padding: 3px; }
+  .ec-promo { font-size: 12px; margin: 0 0 4px; }
+  .ec-img.has-sticker { --sticker: 46px; padding-top: calc(var(--sticker) + 10px); }
+  .picks-square.has-sticker { --sticker: 50px; }
+  .promo-sticker { top: 6px; left: 6px; padding: 2px; }
 }
 @media (max-width: 380px) {
-  .ec-promo { font-size: 14px; }
-  .ec-promo-code { font-size: 10.5px; }
+  .ec-promo { font-size: 11.5px; }
 }
 .ec-tag.ec-tag-low { top: auto; bottom: 12px; }
 

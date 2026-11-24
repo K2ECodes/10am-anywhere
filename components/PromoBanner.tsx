@@ -32,7 +32,11 @@ export default function PromoBanner({ banner, serverNow }: { banner: Banner; ser
 
   const body = (
     <>
-      <span className="promobar-text">{banner.text}</span>
+      <span className="promobar-text">
+        {banner.text.split(/\n+/).map((line) => (
+          <span key={line} className="promobar-line">{line.trim()}</span>
+        ))}
+      </span>
       <span className="promobar-clock" role="timer" aria-label={`Ends in ${d} days ${h} hours ${m} minutes`}>
         <span className="promobar-ends">ends in</span>
         <span className="promobar-unit"><b>{d}</b>d</span>

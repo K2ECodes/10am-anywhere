@@ -61,7 +61,7 @@ export default function ProductCard({ product, size }: { product: Product; size?
         aria-label={`${product.brand} ${product.name}`}
         onClick={() => trackAffiliateClick(product)}
       >
-        <div className="ec-img">
+        <div className={`ec-img${product.promo?.sticker ? " has-sticker" : ""}`}>
           {product.promo ? <PromoSticker promo={product.promo} /> : null}
           {product.webExclusive ? <span className={`ec-tag${product.promo?.sticker ? " ec-tag-low" : ""}`}>web exclusive</span> : null}
           {hasImage ? (

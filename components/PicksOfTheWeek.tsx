@@ -55,7 +55,7 @@ export default function PicksOfTheWeek({
           onBlur={() => setPaused(false)}
         >
           <a
-            className="picks-square"
+            className={`picks-square${active.promo?.sticker ? " has-sticker" : ""}`}
             href={`/go/${active.slug}`}
             target="_blank"
             rel="noopener noreferrer nofollow sponsored"

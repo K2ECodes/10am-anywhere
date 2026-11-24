@@ -323,7 +323,7 @@ export const homepage = {
       initialValue: false,
       fieldset: "promoBanner",
     },
-    { name: "bannerText", title: "Text", type: "string", fieldset: "promoBanner", description: "e.g. Discover Anna von Bergmann Jewelry with an exclusive treat from 10am" },
+    { name: "bannerText", title: "Text", type: "text", rows: 2, fieldset: "promoBanner", description: "Press Enter to start a second line, e.g. Discover Anna von Bergmann Jewelry / with an exclusive treat from 10am" },
     { name: "bannerLink", title: "Link", type: "string", fieldset: "promoBanner", description: "Where a click goes, e.g. /edit/10am-x-avb (an edit link falls back to a search for the brand until the edit is published)" },
     { name: "bannerStart", title: "Starts", type: "datetime", fieldset: "promoBanner" },
     { name: "bannerEnd", title: "Ends (the countdown runs to this)", type: "datetime", fieldset: "promoBanner" },
