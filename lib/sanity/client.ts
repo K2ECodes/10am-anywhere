@@ -25,7 +25,10 @@ const _client = sanityEnabled
   ? createClient({
       ...sanityConfig,
       useCdn: false,
-      perspective: "published",
+      // Local development only: SANITY_PREVIEW_DRAFTS=1 shows unpublished drafts,
+      // to check something before the client publishes it. Ignored in production.
+      perspective:
+        process.env.NODE_ENV !== "production" && process.env.SANITY_PREVIEW_DRAFTS === "1" ? "previewDrafts" : "published",
       token: readToken,
     })
   : null;

@@ -31,6 +31,16 @@ export interface Product {
   /** Extra web-only piece (not in the Instagram look) — shows a subtle tag. */
   webExclusive?: boolean;
   active: boolean;
+  /** A discount code currently running on this product (Studio: Discount code). */
+  promo?: { code: string; percent?: number; sticker: boolean };
+}
+
+export interface PromoBanner {
+  text: string;
+  href: string | null;
+  /** Epoch ms. */
+  start: number;
+  end: number;
 }
 
 export interface CollageTile {

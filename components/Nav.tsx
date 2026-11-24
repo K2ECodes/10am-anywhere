@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import FlodeskForm from "./FlodeskForm";
 import { trackSearch } from "@/lib/track";
+import PromoBanner from "./PromoBanner";
+import type { PromoBanner as Banner } from "@/lib/types";
 
 type OverlayName = "search" | "newsletter" | "menu" | null;
 
@@ -18,7 +20,15 @@ const CATEGORIES: [string, string][] = [
 ];
 const POPULAR = ["Self-Portrait", "Khaite", "Diptyque", "Interior", "Trouser", "Men"];
 
-export default function Nav({ edits = [] }: { edits?: { title: string; slug: string }[] }) {
+export default function Nav({
+  edits = [],
+  promo = null,
+  serverNow = 0,
+}: {
+  edits?: { title: string; slug: string }[];
+  promo?: Banner | null;
+  serverNow?: number;
+}) {
   const [overlay, setOverlay] = useState<OverlayName>(null);
   const [searchValue, setSearchValue] = useState("");
   const router = useRouter();
@@ -58,6 +68,7 @@ export default function Nav({ edits = [] }: { edits?: { title: string; slug: str
           Subscribe
         </button>
       </div>
+      {promo ? <PromoBanner banner={promo} serverNow={serverNow} /> : null}
       <nav className="nav">
         <div className="nav-row">
           <div className="nav-left">

@@ -10,6 +10,8 @@ import MetaPixel from "@/components/MetaPixel";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { WishlistProvider } from "@/lib/wishlist";
 import { getEditNavLinks } from "@/lib/content";
+import { fetchPromoBanner } from "@/lib/sanity/queries";
+import { nowMs } from "@/lib/now";
 import { JsonLd, ORG, SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/seo";
 
 // Render on every request so the nav's edits list reflects newly published edits.
@@ -47,7 +49,14 @@ export default async function RootLayout({
     );
   }
   // Latest edits for the "What We Shop" menu column (kept current automatically).
-  const latestEdits = await getEditNavLinks(6);
+  const [latestEdits, promoBanner] = await Promise.all([
+    getEditNavLinks(6),
+    // Red promotion banner (Studio: Homepage > Red promotion banner). Never breaks the page.
+    fetchPromoBanner().catch((err) => {
+      console.error("[layout] promo banner failed:", err);
+      return null;
+    }),
+  ]);
   return (
     <html lang="en">
       <body>
@@ -71,7 +80,7 @@ export default async function RootLayout({
           ]}
         />
         <WishlistProvider>
-          <Nav edits={latestEdits} />
+          <Nav edits={latestEdits} promo={promoBanner} serverNow={nowMs()} />
           {children}
           <Footer />
           <ConsentBanner />

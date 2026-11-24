@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import type { Product } from "@/lib/types";
 import { formatPrice } from "@/lib/format";
 import { trackAffiliateClick } from "@/lib/track";
+import { PromoLine, PromoSticker } from "./Promo";
 
 // "Our Picks of the Week": a coloured band with a script headline and a white
 // square that shows three or four products one after another, in a loop. Each product
@@ -61,6 +62,7 @@ export default function PicksOfTheWeek({
             aria-label={`${active.brand} ${active.name}, ${formatPrice(active.price, active.currency)}`}
             onClick={() => trackAffiliateClick(active)}
           >
+            {active.promo ? <PromoSticker promo={active.promo} /> : null}
             {products.map((p, idx) =>
               p.image ? (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -82,6 +84,7 @@ export default function PicksOfTheWeek({
           <div className="picks-meta" aria-live="off">
             <div className="ec-brand">{active.brand}</div>
             <div className="ec-name">{active.name}</div>
+            {active.promo ? <PromoLine promo={active.promo} /> : null}
             <div className="ec-price">{formatPrice(active.price, active.currency)}</div>
           </div>
 

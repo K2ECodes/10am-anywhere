@@ -5,6 +5,7 @@ import type { Product } from "@/lib/types";
 import { formatPrice } from "@/lib/format";
 import { trackAffiliateClick, trackViewContent } from "@/lib/track";
 import WishlistHeart from "./WishlistHeart";
+import { PromoLine, PromoSticker } from "./Promo";
 
 // One product. Clicking the card hits /go/[slug] (affiliate redirect + click log).
 // The wishlist heart is a sibling, not nested in the link, so it stays valid HTML.
@@ -61,7 +62,8 @@ export default function ProductCard({ product, size }: { product: Product; size?
         onClick={() => trackAffiliateClick(product)}
       >
         <div className="ec-img">
-          {product.webExclusive ? <span className="ec-tag">web exclusive</span> : null}
+          {product.promo ? <PromoSticker promo={product.promo} /> : null}
+          {product.webExclusive ? <span className={`ec-tag${product.promo?.sticker ? " ec-tag-low" : ""}`}>web exclusive</span> : null}
           {hasImage ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={product.image} alt={`${product.brand} ${product.name}`} loading="lazy" />
@@ -72,6 +74,7 @@ export default function ProductCard({ product, size }: { product: Product; size?
         <div className="ec-meta">
           <div className="ec-brand">{product.brand}</div>
           <div className="ec-name">{product.name}</div>
+          {product.promo ? <PromoLine promo={product.promo} /> : null}
           <div className="ec-price">{formatPrice(product.price, product.currency)}</div>
         </div>
       </a>

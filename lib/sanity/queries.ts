@@ -1,6 +1,7 @@
-import type { Edit, MenEdit, Product, Department, Founder, Article, CityGuide, EditorialRef, HomepageData } from "../types";
+import type { Edit, MenEdit, Product, Department, Founder, Article, CityGuide, EditorialRef, HomepageData, PromoBanner } from "../types";
 import { sanityClient } from "./client";
 import { urlForImage } from "./image";
+import { nowMs } from "../now";
 
 // GROQ layer. Wired but dormant until NEXT_PUBLIC_SANITY_PROJECT_ID is set and
 // content is published in the Studio (sanity/schemas). lib/content.ts switches
@@ -20,7 +21,8 @@ const PRODUCT_PROJECTION = `{
   network,
   gridSize,
   webExclusive,
-  active
+  active,
+  promoOn, promoCode, promoPercent, promoSticker, promoFrom, promoUntil
 }`;
 
 interface RawProduct {
@@ -38,6 +40,23 @@ interface RawProduct {
   gridSize?: Product["gridSize"];
   webExclusive?: boolean;
   active?: boolean;
+  promoOn?: boolean;
+  promoCode?: string;
+  promoPercent?: number;
+  promoSticker?: boolean;
+  promoFrom?: string;
+  promoUntil?: string;
+}
+
+// A product's discount code, only while it's switched on and inside its dates.
+// Pages are rendered per request, so the line and sticker appear and disappear
+// on time without anyone touching the Studio.
+function activePromo(r: RawProduct, now = nowMs()): Product["promo"] {
+  const code = r.promoCode?.trim();
+  if (!r.promoOn || !code) return undefined;
+  if (r.promoFrom && now < Date.parse(r.promoFrom)) return undefined;
+  if (r.promoUntil && now >= Date.parse(r.promoUntil)) return undefined;
+  return { code, percent: r.promoPercent ?? undefined, sticker: r.promoSticker !== false };
 }
 
 function mapProduct(r: RawProduct): Product {
@@ -56,6 +75,7 @@ function mapProduct(r: RawProduct): Product {
     gridSize: r.gridSize ?? "1x1",
     webExclusive: r.webExclusive ?? false,
     active: r.active ?? true,
+    ...(activePromo(r) ? { promo: activePromo(r) } : {}),
   };
 }
 
@@ -461,4 +481,30 @@ export async function fetchSiteIndex(): Promise<{
     "articles": *[_type == "article" && defined(slug.current)] | order(_createdAt desc){ "slug": slug.current, title, dek, "category": category->name, "updated": _updatedAt },
     "guides": *[_type == "cityGuide" && defined(slug.current)] | order(city asc){ "slug": slug.current, city, country, "updated": _updatedAt }
   }`);
+}
+
+// The red promotion banner under the black top banner (Homepage > Red promotion
+// banner). Shown only between its start and end; the countdown runs to the end.
+// An /edit/ link whose edit isn't published yet falls back to a search for the
+// brand that has the discount code, so the banner never leads to a 404.
+export async function fetchPromoBanner(): Promise<PromoBanner | null> {
+  if (!sanityClient) return null;
+  const d = await sanityClient.fetch(
+    `{
+      "b": *[_type == "homepage" && _id == "homepage"][0]{ bannerOn, bannerText, bannerLink, bannerStart, bannerEnd },
+      "brand": *[_type == "product" && promoOn == true && active != false && defined(promoCode)] | order(_updatedAt desc)[0].brand
+    }`
+  );
+  const b = d?.b;
+  if (!b?.bannerOn || !b.bannerText || !b.bannerEnd) return null;
+  const end = Date.parse(b.bannerEnd);
+  const start = b.bannerStart ? Date.parse(b.bannerStart) : 0;
+  if (!Number.isFinite(end) || nowMs() >= end) return null;
+  let href: string | null = b.bannerLink?.trim() || null;
+  const m = href?.match(/^\/edit\/([^/?#]+)/);
+  if (m) {
+    const live = await sanityClient.fetch(`count(*[_type == "edit" && status == "published" && slug.current == $s])`, { s: m[1] });
+    if (!live) href = d?.brand ? `/search?q=${encodeURIComponent(d.brand)}` : null;
+  }
+  return { text: b.bannerText, href, start, end };
 }

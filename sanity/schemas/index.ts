@@ -66,7 +66,59 @@ export const product = {
     },
     { name: "notes", title: "Editorial note", type: "array", of: [{ type: "block" }] },
     { name: "active", title: "Active", type: "boolean", initialValue: true },
+    {
+      name: "promoOn",
+      title: "Show a discount code",
+      description:
+        "Tick to show a small red line above the price (\"Use code 10am15 for 15% off\") and, if chosen below, the round code sticker on the image.",
+      type: "boolean",
+      initialValue: false,
+      fieldset: "promo",
+    },
+    {
+      name: "promoCode",
+      title: "Code",
+      description: "Exactly as the shopper types it, e.g. 10am15",
+      type: "string",
+      fieldset: "promo",
+      hidden: ({ parent }: any) => !parent?.promoOn,
+      validation: (r: any) => r.custom((v: any, ctx: any) => (ctx.parent?.promoOn && !v ? "Add the code" : true)),
+    },
+    {
+      name: "promoPercent",
+      title: "Percent off",
+      description: "Just the number, e.g. 15",
+      type: "number",
+      fieldset: "promo",
+      hidden: ({ parent }: any) => !parent?.promoOn,
+      validation: (r: any) => r.min(1).max(90),
+    },
+    {
+      name: "promoSticker",
+      title: "Show the round code sticker on the image",
+      type: "boolean",
+      initialValue: true,
+      fieldset: "promo",
+      hidden: ({ parent }: any) => !parent?.promoOn,
+    },
+    {
+      name: "promoFrom",
+      title: "Show from (optional)",
+      description: "Leave empty to show straight away.",
+      type: "datetime",
+      fieldset: "promo",
+      hidden: ({ parent }: any) => !parent?.promoOn,
+    },
+    {
+      name: "promoUntil",
+      title: "Show until (optional)",
+      description: "The line and sticker disappear by themselves at this time. Leave empty to keep them until you untick the box.",
+      type: "datetime",
+      fieldset: "promo",
+      hidden: ({ parent }: any) => !parent?.promoOn,
+    },
   ],
+  fieldsets: [{ name: "promo", title: "Discount code", options: { collapsible: true, collapsed: false } }],
 };
 
 export const edit = {
@@ -251,6 +303,7 @@ export const homepage = {
     { name: "picks", title: "Our Picks of the Week (changes weekly)", options: { collapsible: true } },
     { name: "whatsOn", title: "What's On (changes every two weeks)", options: { collapsible: true } },
     { name: "feature", title: "Feature edit, Men or Beauty (changes monthly)", options: { collapsible: true } },
+    { name: "promoBanner", title: "Red promotion banner (under the black banner, with a countdown)", options: { collapsible: true } },
   ],
   fields: [
     {
@@ -262,6 +315,18 @@ export const homepage = {
       validation: (r: any) => r.unique().max(4),
       fieldset: "carousel",
     },
+    {
+      name: "bannerOn",
+      title: "Show the red banner",
+      description: "It only appears between the start and end times below, and counts down to the end.",
+      type: "boolean",
+      initialValue: false,
+      fieldset: "promoBanner",
+    },
+    { name: "bannerText", title: "Text", type: "string", fieldset: "promoBanner", description: "e.g. Discover Anna von Bergmann Jewelry with an exclusive treat from 10am" },
+    { name: "bannerLink", title: "Link", type: "string", fieldset: "promoBanner", description: "Where a click goes, e.g. /edit/10am-x-avb (an edit link falls back to a search for the brand until the edit is published)" },
+    { name: "bannerStart", title: "Starts", type: "datetime", fieldset: "promoBanner" },
+    { name: "bannerEnd", title: "Ends (the countdown runs to this)", type: "datetime", fieldset: "promoBanner" },
     { name: "picksTitle", title: "Headline", type: "string", initialValue: "Our Picks of the Week", fieldset: "picks" },
     {
       name: "picks",
